@@ -13,5 +13,4 @@
 | 7    | Station in Nähe         | Als Benutzer möchte ich auf einer Karte Stationen in meiner Nähe sehen. | - Die Stationen in meiner Nähe werden angezeigt<br />- Die Stationen werden mit Pins markiert | 3         |
 | 8    | Verbindung Teilen       | Als Benutzer möchte ich eine Verbindung per Mail teilen können. | - Auf Knopfdruck wird ein Mailto-Link geöffnet.<br />- Verbindungsinformationen werden strukturiert an das Mailprogramm übertragen. | 3         |
 | 9    | Via / Route anzeigen    | Als Benutzer möchte ich eine Verbindung via einer anderen Station suchen können. | - Die Via-Station kann eingegeben werden.<br />- Die Verbindung wird angezeigt. | 3         |
-|      |                         |                                                              |                                                              |           |
 
