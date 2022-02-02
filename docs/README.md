@@ -1,5 +1,9 @@
 # SwissTransportGUI
 
+## Ablaufdiagramm _Verbindung Suchen_
+
+![](.assets/Verbindungen_Suchen_Ablaufdiagramm.drawio.svg)
+
 ## User Stories
 
 | Id   | Titel                   | Beschrieb                                                    | Abnahmekriterien                                             | Priorität |
