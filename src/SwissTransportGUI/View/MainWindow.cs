@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using SwissTransportGUI.Controller;
 using SwissTransportGUI.View.Controller;
 
 namespace SwissTransportGUI.View;
@@ -9,12 +10,25 @@ public partial class MainWindow : Form
     [return: MarshalAs(UnmanagedType.Bool)]
     static extern bool AllocConsole();
 
+    private StationTableController StationTableController { get; }
+    private StationSearch StationSearcher { get; set; }
+
+    private ConnectionSearchController ConnectionController { get; set; }
+
     public MainWindow()
     {
         InitializeComponent();
         AllocConsole();
 
         Text = "Swiss Transport"; // Title
+        StationSearcher = new StationSearch();
+
+        // Connection
+        ConnectionController = new ConnectionSearchController();
+        connectionGrid.DataSource = ConnectionController.Connections;
+        ConnectionController.GetConnections("Luzern", "Zürich");
+
+        // Stationtable
         StationTableController = new StationTableController();
 
         // Stationtable Search Box
@@ -26,7 +40,6 @@ public partial class MainWindow : Form
         stationTableGrid.DataSource = StationTableController.StationBoardEntries;
     }
 
-    private StationTableController StationTableController { get; }
 
     private void SearchButton_Click(object sender, EventArgs e)
     {
@@ -37,19 +50,13 @@ public partial class MainWindow : Form
         }
     }
 
-    private void SearchBox_KeyUp(object sender, KeyEventArgs e)
-    {
-        
-
-    }
-
     private void SearchBox_TextChanged(object sender, EventArgs e)
     {
         // TODO: sometimes when first letter input -> crashes (Access Violation)
         string stationNameQuery = SearchBox.Text; // TODO: check is string
         if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
         {
-            AutoCompleteStringCollection searchStringCollection = StationTableController.GetStationSuggestions(stationNameQuery);
+            AutoCompleteStringCollection searchStringCollection = StationSearcher.GetStationSuggestions(stationNameQuery);
             SearchBox.AutoCompleteCustomSource = searchStringCollection;
         }
     }
@@ -67,5 +74,10 @@ public partial class MainWindow : Form
     private void SearchBoxClear_Click(object sender, EventArgs e)
     {
         SearchBox.Text = "";
+    }
+
+    private void TimetableTab_Paint(object sender, PaintEventArgs e)
+    {
+        
     }
 }

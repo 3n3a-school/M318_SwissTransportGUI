@@ -39,9 +39,11 @@
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.stationTableGrid = new System.Windows.Forms.DataGridView();
+            this.connectionGrid = new System.Windows.Forms.DataGridView();
             this.TabControl.SuspendLayout();
             this.TimetableTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.StationTableTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TimeTableSplitContainer)).BeginInit();
@@ -53,6 +55,7 @@
             this.SearchBoxSplitContainer.Panel2.SuspendLayout();
             this.SearchBoxSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stationTableGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControl
@@ -79,6 +82,7 @@
             this.TimetableTab.Size = new System.Drawing.Size(792, 417);
             this.TimetableTab.TabIndex = 0;
             this.TimetableTab.Text = "Timetable";
+            this.TimetableTab.Paint += new System.Windows.Forms.PaintEventHandler(this.TimetableTab_Paint);
             // 
             // splitContainer1
             // 
@@ -92,7 +96,11 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Black;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.White;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.connectionGrid);
             this.splitContainer1.Size = new System.Drawing.Size(786, 411);
             this.splitContainer1.SplitterDistance = 89;
             this.splitContainer1.TabIndex = 0;
@@ -188,7 +196,6 @@
             this.SearchBox.Size = new System.Drawing.Size(530, 34);
             this.SearchBox.TabIndex = 0;
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
-            this.SearchBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchBox_KeyUp);
             // 
             // SearchButton
             // 
@@ -216,6 +223,19 @@
             this.stationTableGrid.Size = new System.Drawing.Size(786, 319);
             this.stationTableGrid.TabIndex = 0;
             // 
+            // connectionGrid
+            // 
+            this.connectionGrid.AllowUserToDeleteRows = false;
+            this.connectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.connectionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.connectionGrid.Location = new System.Drawing.Point(0, 0);
+            this.connectionGrid.Name = "connectionGrid";
+            this.connectionGrid.ReadOnly = true;
+            this.connectionGrid.RowHeadersWidth = 51;
+            this.connectionGrid.RowTemplate.Height = 29;
+            this.connectionGrid.Size = new System.Drawing.Size(786, 318);
+            this.connectionGrid.TabIndex = 0;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -226,6 +246,7 @@
             this.Text = "Form1";
             this.TabControl.ResumeLayout(false);
             this.TimetableTab.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.StationTableTab.ResumeLayout(false);
@@ -239,6 +260,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SearchBoxSplitContainer)).EndInit();
             this.SearchBoxSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.stationTableGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -256,5 +278,6 @@
         private SplitContainer splitContainer1;
         private TextBox SearchBox;
         private Button SearchBoxClear;
+        private DataGridView connectionGrid;
     }
 }
