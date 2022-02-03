@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SwissTransportGUI": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

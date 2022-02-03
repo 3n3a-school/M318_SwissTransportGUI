@@ -19,7 +19,7 @@
                 throw new ArgumentNullException(nameof(query));
             }
 
-            var uri = new Uri($"{WebApiHost}locations?query={query}");
+            var uri = new Uri($"{WebApiHost}locations?query={query}&type=station");
             return this.GetObject<Stations>(uri);
         }
 
