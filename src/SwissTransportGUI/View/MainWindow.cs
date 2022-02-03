@@ -45,11 +45,27 @@ public partial class MainWindow : Form
 
     private void SearchBox_TextChanged(object sender, EventArgs e)
     {
+        // TODO: sometimes when first letter input -> crashes (Access Violation)
         string stationNameQuery = SearchBox.Text; // TODO: check is string
         if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
         {
             AutoCompleteStringCollection searchStringCollection = StationTableController.GetStationSuggestions(stationNameQuery);
             SearchBox.AutoCompleteCustomSource = searchStringCollection;
         }
+    }
+
+    private void TabControl_Selected(object sender, TabControlEventArgs e)
+    {
+
+    }
+
+    private void StationTableTab_Paint(object sender, PaintEventArgs e)
+    {
+        SearchBox.Focus();
+    }
+
+    private void SearchBoxClear_Click(object sender, EventArgs e)
+    {
+        SearchBox.Text = "";
     }
 }

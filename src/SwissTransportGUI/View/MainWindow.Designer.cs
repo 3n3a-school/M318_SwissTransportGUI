@@ -35,6 +35,7 @@
             this.StationTableTab = new System.Windows.Forms.TabPage();
             this.TimeTableSplitContainer = new System.Windows.Forms.SplitContainer();
             this.SearchBoxSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.SearchBoxClear = new System.Windows.Forms.Button();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.stationTableGrid = new System.Windows.Forms.DataGridView();
@@ -65,6 +66,7 @@
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(800, 450);
             this.TabControl.TabIndex = 0;
+            this.TabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl_Selected);
             // 
             // TimetableTab
             // 
@@ -115,6 +117,7 @@
             this.StationTableTab.Size = new System.Drawing.Size(792, 417);
             this.StationTableTab.TabIndex = 2;
             this.StationTableTab.Text = "Station Table";
+            this.StationTableTab.Paint += new System.Windows.Forms.PaintEventHandler(this.StationTableTab_Paint);
             // 
             // TimeTableSplitContainer
             // 
@@ -146,6 +149,7 @@
             // 
             // SearchBoxSplitContainer.Panel1
             // 
+            this.SearchBoxSplitContainer.Panel1.Controls.Add(this.SearchBoxClear);
             this.SearchBoxSplitContainer.Panel1.Controls.Add(this.SearchBox);
             this.SearchBoxSplitContainer.Panel1.Padding = new System.Windows.Forms.Padding(25, 27, 25, 25);
             // 
@@ -156,6 +160,19 @@
             this.SearchBoxSplitContainer.Size = new System.Drawing.Size(786, 88);
             this.SearchBoxSplitContainer.SplitterDistance = 580;
             this.SearchBoxSplitContainer.TabIndex = 0;
+            // 
+            // SearchBoxClear
+            // 
+            this.SearchBoxClear.Dock = System.Windows.Forms.DockStyle.Right;
+            this.SearchBoxClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.SearchBoxClear.Location = new System.Drawing.Point(518, 27);
+            this.SearchBoxClear.Margin = new System.Windows.Forms.Padding(40);
+            this.SearchBoxClear.Name = "SearchBoxClear";
+            this.SearchBoxClear.Size = new System.Drawing.Size(37, 36);
+            this.SearchBoxClear.TabIndex = 1;
+            this.SearchBoxClear.Text = "X";
+            this.SearchBoxClear.UseVisualStyleBackColor = true;
+            this.SearchBoxClear.Click += new System.EventHandler(this.SearchBoxClear_Click);
             // 
             // SearchBox
             // 
@@ -238,5 +255,6 @@
         private DataGridView stationTableGrid;
         private SplitContainer splitContainer1;
         private TextBox SearchBox;
+        private Button SearchBoxClear;
     }
 }
