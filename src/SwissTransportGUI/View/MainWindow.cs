@@ -1,6 +1,8 @@
 using System.Runtime.InteropServices;
 using SwissTransportGUI.Controller;
 using SwissTransportGUI.View.Controller;
+using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace SwissTransportGUI.View;
 
@@ -15,6 +17,8 @@ public partial class MainWindow : Form
 
     private ConnectionSearchController ConnectionController { get; set; }
 
+    private string LastProcessedSearchInput { get; set; } = "";
+
     public MainWindow()
     {
         InitializeComponent();
@@ -22,6 +26,7 @@ public partial class MainWindow : Form
 
         Text = "Swiss Transport"; // Title
         StationSearcher = new StationSearch();
+
 
         // Connection
         ConnectionController = new ConnectionSearchController();
@@ -52,13 +57,19 @@ public partial class MainWindow : Form
 
     private void SearchBox_TextChanged(object sender, EventArgs e)
     {
-        // TODO: sometimes when first letter input -> crashes (Access Violation)
+        // BUG: sometimes when letters are input very quickly -> crashes (Access Violation)
         string stationNameQuery = SearchBox.Text; // TODO: check is string
-        if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
+
+        if ((string.IsNullOrWhiteSpace(stationNameQuery) == false) && (LastProcessedSearchInput.Length < SearchBox.Text.Length))
         {
+            Console.WriteLine("Updated AutoSuggestions");
             AutoCompleteStringCollection searchStringCollection = StationSearcher.GetStationSuggestions(stationNameQuery);
-            SearchBox.AutoCompleteCustomSource = searchStringCollection;
+            lock (SearchBox.AutoCompleteCustomSource.SyncRoot)
+            { 
+                SearchBox.AutoCompleteCustomSource = searchStringCollection;
+            }
         }
+        LastProcessedSearchInput = stationNameQuery;
     }
 
     private void TabControl_Selected(object sender, TabControlEventArgs e)
@@ -79,5 +90,26 @@ public partial class MainWindow : Form
     private void TimetableTab_Paint(object sender, PaintEventArgs e)
     {
         
+    }
+
+    private void SearchBox_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        
+
+    }
+
+    private void GetSearchSuggestions(object sender, EventArgs e)
+    {
+        
+    }
+
+    private void SearchBox_Enter(object sender, EventArgs e)
+    {
+
+    }
+
+    private void SearchBox_Leave(object sender, EventArgs e)
+    {
+
     }
 }
