@@ -42,6 +42,12 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.connectionGrid = new System.Windows.Forms.DataGridView();
             this.TabControl = new System.Windows.Forms.TabControl();
+            this.FromStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FromStationDepartureTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ToStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ToStationArrivalTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Delay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TimetableTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -227,15 +233,30 @@
             // 
             // connectionGrid
             // 
+            this.connectionGrid.AllowUserToAddRows = false;
             this.connectionGrid.AllowUserToDeleteRows = false;
+            this.connectionGrid.AllowUserToResizeColumns = false;
+            this.connectionGrid.AllowUserToResizeRows = false;
+            this.connectionGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.connectionGrid.CausesValidation = false;
             this.connectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.connectionGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+                this.FromStation,
+                this.FromStationDepartureTime,
+                this.ToStation,
+                this.ToStationArrivalTime,
+                this.Duration,
+            this.Delay});
+            this.connectionGrid.Cursor = System.Windows.Forms.Cursors.Default;
             this.connectionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.connectionGrid.Location = new System.Drawing.Point(0, 0);
             this.connectionGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.connectionGrid.Name = "connectionGrid";
             this.connectionGrid.ReadOnly = true;
+            this.connectionGrid.RowHeadersVisible = false;
             this.connectionGrid.RowHeadersWidth = 51;
             this.connectionGrid.RowTemplate.Height = 29;
+            this.connectionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.connectionGrid.Size = new System.Drawing.Size(686, 214);
             this.connectionGrid.TabIndex = 0;
             // 
@@ -251,6 +272,54 @@
             this.TabControl.Size = new System.Drawing.Size(700, 338);
             this.TabControl.TabIndex = 0;
             this.TabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl_Selected);
+            // 
+            // FromStation
+            // 
+            this.FromStation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FromStation.DataPropertyName = "FromStation";
+            this.FromStation.HeaderText = "From";
+            this.FromStation.Name = "FromStation";
+            this.FromStation.ReadOnly = true;
+            // 
+            // FromStationDepartureTime
+            // 
+            this.FromStationDepartureTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FromStationDepartureTime.DataPropertyName = "FromStationDepartureTime";
+            this.FromStationDepartureTime.HeaderText = "Departure";
+            this.FromStationDepartureTime.Name = "FromStationDepartureTime";
+            this.FromStationDepartureTime.ReadOnly = true;
+            // 
+            // ToStation
+            // 
+            this.ToStation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ToStation.DataPropertyName = "ToStation";
+            this.ToStation.HeaderText = "To";
+            this.ToStation.Name = "ToStation";
+            this.ToStation.ReadOnly = true;
+            // 
+            // ToStationArrivalTime
+            // 
+            this.ToStationArrivalTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ToStationArrivalTime.DataPropertyName = "ToStationArrivalTime";
+            this.ToStationArrivalTime.HeaderText = "Arrival";
+            this.ToStationArrivalTime.Name = "ToStationArrivalTime";
+            this.ToStationArrivalTime.ReadOnly = true;
+            // 
+            // Duration
+            // 
+            this.Duration.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Duration.DataPropertyName = "Duration";
+            this.Duration.HeaderText = "Duration";
+            this.Duration.Name = "Duration";
+            this.Duration.ReadOnly = true;
+            // 
+            // Delay
+            // 
+            this.Delay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Delay.DataPropertyName = "Delay";
+            this.Delay.HeaderText = "Delay";
+            this.Delay.Name = "Delay";
+            this.Delay.ReadOnly = true;
             // 
             // MainWindow
             // 
@@ -290,5 +359,11 @@
         private TextBox textBox1;
         private DataGridView connectionGrid;
         private TabControl TabControl;
+        private DataGridViewTextBoxColumn FromStation;
+        private DataGridViewTextBoxColumn FromStationDepartureTime;
+        private DataGridViewTextBoxColumn ToStation;
+        private DataGridViewTextBoxColumn ToStationArrivalTime;
+        private DataGridViewTextBoxColumn Duration;
+        private DataGridViewTextBoxColumn Delay;
     }
 }
