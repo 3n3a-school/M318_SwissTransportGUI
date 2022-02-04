@@ -1,4 +1,5 @@
-﻿using SwissTransportGUI.Controller;
+﻿using SwissTransport.Models;
+using SwissTransportGUI.Controller;
 using SwissTransportGUI.View.Controller;
 using System;
 using System.Collections.Generic;
@@ -118,8 +119,8 @@ namespace SwissTransportGUI.View
             {
                 Location = new Point()
                 {
-                    X = SearchBox.Location.X,
-                    Y = SearchBox.Location.Y + SearchBox.Height,
+                    X = SearchBox.Location.X + 3,
+                    Y = SearchBox.Location.Y + SearchBox.Height + 2,
                 },
                 Width = SearchBox.Width,
                 Visible = false,
@@ -128,6 +129,8 @@ namespace SwissTransportGUI.View
                 DisplayMember = "Name",
                 Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right))),
+                IntegralHeight = true,
+                Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point),
             };
 
             // 
@@ -180,7 +183,15 @@ namespace SwissTransportGUI.View
 
             this.StationTableTab.Paint += new PaintEventHandler(this.StationTableTab_Paint);
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.Click += new EventHandler(this.ShowAutoSuggestions);
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
+            this.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_SuggestItem);
+        }
+
+        private void AutoSuggest_SuggestItem(object? sender, EventArgs e)
+        {
+            Station selectedStation = (Station)AutoSuggestList.SelectedItem;
+            SearchBox.Text = selectedStation.Name;
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -216,9 +227,9 @@ namespace SwissTransportGUI.View
             AutoSuggestList.Width = SearchBox.Width;
         }
 
-        private void SearchBox_Leave(object sender, EventArgs e)
+        private void ShowAutoSuggestions(object sender, EventArgs e)
         {
-            AutoSuggestList.Visible = false;
+            AutoSuggestList.Visible = true;
         }
     }
 }
