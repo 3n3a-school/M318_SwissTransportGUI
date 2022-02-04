@@ -11,18 +11,18 @@ namespace SwissTransportGUI.View
 {
     internal class StationTableTabView
     {
-        public TabPage StationTableTab { get; set; }
-        private SplitContainer TimeTableSplitContainer { get; set; }
-        private SplitContainer SearchBoxSplitContainer { get; set; }
-        private TextBox SearchBox { get; set; }
-        private ListBox AutoSuggestList { get; set; }
-        private Button SearchButton { get; set; }
-        private DataGridView StationTableGrid { get; set; }
-        private DataGridViewTextBoxColumn LineColumn { get; set; }
-        private DataGridViewTextBoxColumn DepartureColumn { get; set; }
-        private DataGridViewTextBoxColumn DirectionColumn { get; set; }
-        private DataGridViewTextBoxColumn PlatformColumn { get; set; }
-        private DataGridViewTextBoxColumn DelaysColumn { get; set; }
+        public TabPage StationTableTab { get; set; } = new();
+        private SplitContainer TimeTableSplitContainer { get; set; } = new();
+        private SplitContainer SearchBoxSplitContainer { get; set; } = new();
+        private TextBox SearchBox { get; set; } = new();
+        private ListBox AutoSuggestList { get; set; } = new();
+        private Button SearchButton { get; set; } = new();
+        private DataGridView StationTableGrid { get; set; } = new();
+        private DataGridViewTextBoxColumn LineColumn { get; set; } = new();
+        private DataGridViewTextBoxColumn DepartureColumn { get; set; } = new();
+        private DataGridViewTextBoxColumn DirectionColumn { get; set; } = new();
+        private DataGridViewTextBoxColumn PlatformColumn { get; set; } = new();
+        private DataGridViewTextBoxColumn DelaysColumn { get; set; } = new();
 
         private DepartureBoardController StationTableController { get; }
         private StationSearch StationSearcher { get; set; }
