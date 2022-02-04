@@ -38,7 +38,9 @@ namespace SwissTransportGUI.View.Controller
             {
                 DepartureBoardEntries.Add(new DepartureEntry()
                 {
-                    Line = entry.
+                    Line = $"{entry.Category}{entry.Number}",
+                    DepartureTime = entry.Stop.Departure.ToString("HH:mm"),
+                    Direction = entry.To
                 });
             }
         }

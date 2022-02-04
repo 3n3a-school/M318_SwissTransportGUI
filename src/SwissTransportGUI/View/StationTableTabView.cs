@@ -174,7 +174,7 @@ namespace SwissTransportGUI.View
                 },
                 Size = new System.Drawing.Size(686, 215),
                 TabIndex = 0,
-                DataSource = StationTableController.StationBoardEntries
+                DataSource = StationTableController.DepartureBoardEntries
             };
 
             this.StationTableTab.Controls.Add(this.TimeTableSplitContainer);
