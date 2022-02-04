@@ -245,6 +245,7 @@ namespace SwissTransportGUI.View
             this.StationTableTab.Paint += new PaintEventHandler(this.StationTableTab_Paint);
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
             this.SearchBox.GotFocus += new EventHandler(this.ShowAutoSuggestions);
+            this.SearchBox.Click += new EventHandler(this.ShowAutoSuggestions);
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             this.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_SuggestItem);
             this.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleEnter);
