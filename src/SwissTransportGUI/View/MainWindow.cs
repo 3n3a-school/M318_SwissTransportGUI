@@ -12,32 +12,24 @@ public partial class MainWindow : Form
     [return: MarshalAs(UnmanagedType.Bool)]
     static extern bool AllocConsole();
 
-    private ConnectionSearchController ConnectionController { get; set; }
     private StationTableTabView StationTableTabView { get; set; }
+    private TimetableTabView TimetableTabView { get; set;}
 
     public MainWindow()
     {
         InitializeComponent();
         StationTableTabView = new StationTableTabView();
-        TabControl.TabPages.Add(StationTableTabView.StationTableTab);
+        TimetableTabView = new TimetableTabView();
+        TabControl.TabPages.AddRange(new TabPage[] {
+            StationTableTabView.StationTableTab,
+            TimetableTabView.TimetableTab,
+        });
 
         AllocConsole();
-
-        Text = "Swiss Transport"; // Title
-
-        // Connection
-        ConnectionController = new ConnectionSearchController();
-        connectionGrid.DataSource = ConnectionController.Connections;
-        ConnectionController.GetConnections("Luzern", "Zürich");
     }
 
     private void TabControl_Selected(object sender, TabControlEventArgs e)
     {
 
-    }
-
-    private void TimetableTab_Paint(object sender, PaintEventArgs e)
-    {
-        
     }
 }
