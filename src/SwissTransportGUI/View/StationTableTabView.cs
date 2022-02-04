@@ -91,6 +91,7 @@ namespace SwissTransportGUI.View
                 Location = new Point(0, 0),
                 Name = "SearchBoxSplitContainer",
                 Size = new Size(786, 88),
+                FixedPanel = FixedPanel.Panel2, // Search Button always same size
                 SplitterDistance = 580,
                 TabIndex = 0,
                 Panel1 = {

@@ -1,8 +1,4 @@
 using System.Runtime.InteropServices;
-using SwissTransportGUI.Controller;
-using SwissTransportGUI.View.Controller;
-using System.Windows.Forms;
-using Timer = System.Windows.Forms.Timer;
 
 namespace SwissTransportGUI.View;
 
@@ -18,8 +14,10 @@ public partial class MainWindow : Form
     public MainWindow()
     {
         InitializeComponent();
+        
         StationTableTabView = new StationTableTabView();
         TimetableTabView = new TimetableTabView();
+
         TabControl.TabPages.AddRange(new TabPage[] {
             StationTableTabView.StationTableTab,
             TimetableTabView.TimetableTab,
