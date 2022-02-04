@@ -19,14 +19,18 @@ namespace SwissTransportGUI.View
         private Button SearchButton { get; set; }
         private DataGridView dataGridView1 { get; set; }
 
-        private string LastProcessedSearchInput { get; set; } = "";
         private StationTableController StationTableController { get; }
         private StationSearch StationSearcher { get; set; }
+
+        private string LastProcessedSearchInput { get; set; } = "";
+        private Station SelectedStation { get; set; }
 
         public StationTableTabView()
         {
             StationSearcher = new StationSearch();
             StationTableController = new StationTableController();
+            SelectedStation = new Station();
+
             InitControls();
         }
 
@@ -197,7 +201,11 @@ namespace SwissTransportGUI.View
         private void SearchButton_Click(object sender, EventArgs e)
         {
             string stationNameQuery = SearchBox.Text;
-            if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
+            if (string.IsNullOrEmpty(SelectedStation.Name) == false) {
+                StationTableController.GetStationBoard(SelectedStation.Name, SelectedStation.Id);
+                AutoSuggestList.Hide();
+            }
+            else if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
             {
                 StationTableController.GetStationBoard(stationNameQuery);
                 AutoSuggestList.Hide();
@@ -210,6 +218,7 @@ namespace SwissTransportGUI.View
             if ((string.IsNullOrWhiteSpace(stationNameQuery) == false) && (LastProcessedSearchInput.Length < SearchBox.Text.Length))
             {
                 StationSearcher.GetNewStationSuggestions(stationNameQuery);
+                SelectedStation = StationSearcher.StationSuggestions[0];
                 AutoSuggestList.Visible = true;
                 AutoSuggestList.BringToFront();
             }

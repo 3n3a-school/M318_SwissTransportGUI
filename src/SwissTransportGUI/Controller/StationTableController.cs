@@ -23,9 +23,14 @@ namespace SwissTransportGUI.View.Controller
 
         public void GetStationBoard(string stationName)
         {
-            // TODO: Error handling, when id null etc.
             Station chosenStation = transport.GetStations(stationName).StationList[0];
-            StationBoardRoot stationBoardRoot = transport.GetStationBoard(chosenStation.Name, chosenStation.Id);
+            GetStationBoard(chosenStation.Name, chosenStation.Id);
+        }
+
+        public void GetStationBoard(string stationName, string stationId)
+        {
+            // TODO: Error handling, when id null etc.
+            StationBoardRoot stationBoardRoot = transport.GetStationBoard(stationName, stationId);
 
             StationBoardEntries.Clear();
             foreach (StationBoard entry in stationBoardRoot.Entries)
