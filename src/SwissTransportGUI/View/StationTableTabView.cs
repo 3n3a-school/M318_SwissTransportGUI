@@ -19,7 +19,7 @@ namespace SwissTransportGUI.View
         private Button SearchButton { get; set; }
         private DataGridView dataGridView1 { get; set; }
 
-        private StationTableController StationTableController { get; }
+        private DepartureBoardController StationTableController { get; }
         private StationSearch StationSearcher { get; set; }
 
         private string LastProcessedSearchInput { get; set; } = "";
@@ -28,7 +28,7 @@ namespace SwissTransportGUI.View
         public StationTableTabView()
         {
             StationSearcher = new StationSearch();
-            StationTableController = new StationTableController();
+            StationTableController = new DepartureBoardController();
             SelectedStation = new Station();
 
             InitControls();
