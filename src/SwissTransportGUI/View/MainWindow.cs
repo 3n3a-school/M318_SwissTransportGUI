@@ -19,8 +19,8 @@ public partial class MainWindow : Form
         TimetableTabView = new TimetableTabView();
 
         TabControl.TabPages.AddRange(new TabPage[] {
-            StationTableTabView.StationTableTab,
             TimetableTabView.TimetableTab,
+            StationTableTabView.StationTableTab,
         });
 
         AllocConsole();

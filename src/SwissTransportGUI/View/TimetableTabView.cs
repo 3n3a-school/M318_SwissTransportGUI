@@ -1,9 +1,4 @@
 ﻿using SwissTransportGUI.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SwissTransportGUI.View
 {
@@ -281,8 +276,8 @@ namespace SwissTransportGUI.View
                 ReadOnly = true,
             };
             
+            // Adding Elements to Containers
             this.TimetableTab.Controls.Add(this.splitContainer1);
-            this.TimetableTab.Paint += new PaintEventHandler(this.TimetableTab_Paint);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer1.Panel2.Controls.Add(this.connectionGrid);
             this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66666F));
@@ -305,6 +300,10 @@ namespace SwissTransportGUI.View
                 this.Duration,
                 this.Delay
             });
+
+
+            // Initializing Event Handlers
+            this.TimetableTab.Paint += new PaintEventHandler(this.TimetableTab_Paint);
         }
 
         private void TimetableTab_Paint(object sender, PaintEventArgs e)

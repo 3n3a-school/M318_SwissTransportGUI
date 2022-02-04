@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.StationsNearbyTab = new System.Windows.Forms.TabPage();
-            
             this.TabControl = new System.Windows.Forms.TabControl();
             this.TabControl.SuspendLayout();
             this.SuspendLayout();
@@ -41,10 +40,9 @@
             this.StationsNearbyTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.StationsNearbyTab.Name = "StationsNearbyTab";
             this.StationsNearbyTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.StationsNearbyTab.Size = new System.Drawing.Size(692, 310);
+            this.StationsNearbyTab.Size = new System.Drawing.Size(785, 430);
             this.StationsNearbyTab.TabIndex = 1;
             this.StationsNearbyTab.Text = "Stations Nearby";
-            
             // 
             // TabControl
             // 
@@ -54,7 +52,7 @@
             this.TabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(700, 338);
+            this.TabControl.Size = new System.Drawing.Size(793, 458);
             this.TabControl.TabIndex = 0;
             this.TabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl_Selected);
             // 
@@ -62,7 +60,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.ClientSize = new System.Drawing.Size(793, 458);
             this.Controls.Add(this.TabControl);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainWindow";
