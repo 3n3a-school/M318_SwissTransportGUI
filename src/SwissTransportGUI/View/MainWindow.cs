@@ -1,5 +1,8 @@
 using System.Runtime.InteropServices;
+using SwissTransportGUI.Controller;
 using SwissTransportGUI.View.Controller;
+using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace SwissTransportGUI.View;
 
@@ -9,38 +12,31 @@ public partial class MainWindow : Form
     [return: MarshalAs(UnmanagedType.Bool)]
     static extern bool AllocConsole();
 
+    private ConnectionSearchController ConnectionController { get; set; }
+    private StationTableTabView StationTableTabView { get; set; }
+
     public MainWindow()
     {
         InitializeComponent();
+        StationTableTabView = new StationTableTabView();
+        TabControl.TabPages.Add(StationTableTabView.StationTableTab);
+
         AllocConsole();
 
         Text = "Swiss Transport"; // Title
-        StationTableController = new StationTableController();
 
-        // Stationtable Search Box
-        SearchBox.AutoCompleteCustomSource = new AutoCompleteStringCollection();
-        SearchBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-        SearchBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        // Connection
+        ConnectionController = new ConnectionSearchController();
+        connectionGrid.DataSource = ConnectionController.Connections;
+        ConnectionController.GetConnections("Luzern", "Zürich");
     }
 
-    private StationTableController StationTableController { get; }
-
-    private void SearchButton_Click(object sender, EventArgs e)
+    private void TabControl_Selected(object sender, TabControlEventArgs e)
     {
-        
+
     }
 
-    private void SearchBox_TextChanged(object sender, EventArgs e)
-    {
-        string stationNameQuery = SearchBox.Text; // TODO: check is string
-        if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
-        {
-            AutoCompleteStringCollection searchStringCollection = StationTableController.GetStationSuggestions(stationNameQuery);
-            SearchBox.AutoCompleteCustomSource = searchStringCollection;
-        }
-    }
-
-    private void SearchBox_KeyDown(object sender, KeyEventArgs e)
+    private void TimetableTab_Paint(object sender, PaintEventArgs e)
     {
         
     }

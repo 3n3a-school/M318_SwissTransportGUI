@@ -28,189 +28,267 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.TabControl = new System.Windows.Forms.TabControl();
-            this.TimetableTab = new System.Windows.Forms.TabPage();
             this.StationsNearbyTab = new System.Windows.Forms.TabPage();
-            this.StationTableTab = new System.Windows.Forms.TabPage();
-            this.TimeTableSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.SearchBoxSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.SearchBox = new System.Windows.Forms.TextBox();
-            this.SearchButton = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.TimetableTab = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.connectionGrid = new System.Windows.Forms.DataGridView();
+            this.TabControl = new System.Windows.Forms.TabControl();
+            this.TimetableTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionGrid)).BeginInit();
             this.TabControl.SuspendLayout();
-            this.StationTableTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TimeTableSplitContainer)).BeginInit();
-            this.TimeTableSplitContainer.Panel1.SuspendLayout();
-            this.TimeTableSplitContainer.Panel2.SuspendLayout();
-            this.TimeTableSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SearchBoxSplitContainer)).BeginInit();
-            this.SearchBoxSplitContainer.Panel1.SuspendLayout();
-            this.SearchBoxSplitContainer.Panel2.SuspendLayout();
-            this.SearchBoxSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // TabControl
+            // StationsNearbyTab
             // 
-            this.TabControl.Controls.Add(this.TimetableTab);
-            this.TabControl.Controls.Add(this.StationsNearbyTab);
-            this.TabControl.Controls.Add(this.StationTableTab);
-            this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabControl.Location = new System.Drawing.Point(0, 0);
-            this.TabControl.Name = "TabControl";
-            this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(800, 450);
-            this.TabControl.TabIndex = 0;
+            this.StationsNearbyTab.BackColor = System.Drawing.Color.White;
+            this.StationsNearbyTab.Location = new System.Drawing.Point(4, 24);
+            this.StationsNearbyTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.StationsNearbyTab.Name = "StationsNearbyTab";
+            this.StationsNearbyTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.StationsNearbyTab.Size = new System.Drawing.Size(692, 310);
+            this.StationsNearbyTab.TabIndex = 1;
+            this.StationsNearbyTab.Text = "Stations Nearby";
             // 
             // TimetableTab
             // 
             this.TimetableTab.BackColor = System.Drawing.Color.White;
             this.TimetableTab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.TimetableTab.Location = new System.Drawing.Point(4, 29);
+            this.TimetableTab.Controls.Add(this.splitContainer1);
+            this.TimetableTab.Location = new System.Drawing.Point(4, 24);
+            this.TimetableTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TimetableTab.Name = "TimetableTab";
-            this.TimetableTab.Padding = new System.Windows.Forms.Padding(3);
-            this.TimetableTab.Size = new System.Drawing.Size(792, 417);
+            this.TimetableTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TimetableTab.Size = new System.Drawing.Size(692, 310);
             this.TimetableTab.TabIndex = 0;
             this.TimetableTab.Text = "Timetable";
+            this.TimetableTab.Paint += new System.Windows.Forms.PaintEventHandler(this.TimetableTab_Paint);
             // 
-            // StationsNearbyTab
+            // splitContainer1
             // 
-            this.StationsNearbyTab.BackColor = System.Drawing.Color.White;
-            this.StationsNearbyTab.Location = new System.Drawing.Point(4, 29);
-            this.StationsNearbyTab.Name = "StationsNearbyTab";
-            this.StationsNearbyTab.Padding = new System.Windows.Forms.Padding(3);
-            this.StationsNearbyTab.Size = new System.Drawing.Size(792, 417);
-            this.StationsNearbyTab.TabIndex = 1;
-            this.StationsNearbyTab.Text = "Stations Nearby";
+            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // StationTableTab
+            // splitContainer1.Panel1
             // 
-            this.StationTableTab.BackColor = System.Drawing.Color.White;
-            this.StationTableTab.Controls.Add(this.TimeTableSplitContainer);
-            this.StationTableTab.Location = new System.Drawing.Point(4, 29);
-            this.StationTableTab.Name = "StationTableTab";
-            this.StationTableTab.Padding = new System.Windows.Forms.Padding(3);
-            this.StationTableTab.Size = new System.Drawing.Size(792, 417);
-            this.StationTableTab.TabIndex = 2;
-            this.StationTableTab.Text = "Station Table";
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.White;
+            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
             // 
-            // TimeTableSplitContainer
+            // splitContainer1.Panel2
             // 
-            this.TimeTableSplitContainer.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.TimeTableSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TimeTableSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.TimeTableSplitContainer.Location = new System.Drawing.Point(3, 3);
-            this.TimeTableSplitContainer.Name = "TimeTableSplitContainer";
-            this.TimeTableSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer1.Panel2.Controls.Add(this.connectionGrid);
+            this.splitContainer1.Size = new System.Drawing.Size(686, 306);
+            this.splitContainer1.SplitterDistance = 89;
+            this.splitContainer1.SplitterWidth = 3;
+            this.splitContainer1.TabIndex = 0;
             // 
-            // TimeTableSplitContainer.Panel1
+            // tableLayoutPanel1
             // 
-            this.TimeTableSplitContainer.Panel1.BackColor = System.Drawing.Color.White;
-            this.TimeTableSplitContainer.Panel1.Controls.Add(this.SearchBoxSplitContainer);
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox4, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(681, 85);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // TimeTableSplitContainer.Panel2
+            // label3
             // 
-            this.TimeTableSplitContainer.Panel2.Controls.Add(this.dataGridView1);
-            this.TimeTableSplitContainer.Size = new System.Drawing.Size(786, 411);
-            this.TimeTableSplitContainer.SplitterDistance = 88;
-            this.TimeTableSplitContainer.TabIndex = 1;
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(302, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 35);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "From";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SearchBoxSplitContainer
+            // label4
             // 
-            this.SearchBoxSplitContainer.Cursor = System.Windows.Forms.Cursors.VSplit;
-            this.SearchBoxSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SearchBoxSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.SearchBoxSplitContainer.Name = "SearchBoxSplitContainer";
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(431, 35);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(19, 35);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "To";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SearchBoxSplitContainer.Panel1
+            // textBox3
             // 
-            this.SearchBoxSplitContainer.Panel1.Controls.Add(this.SearchBox);
-            this.SearchBoxSplitContainer.Panel1.Padding = new System.Windows.Forms.Padding(25, 27, 25, 25);
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox3.Location = new System.Drawing.Point(456, 37);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.PlaceholderText = "Search for a Station ...";
+            this.textBox3.Size = new System.Drawing.Size(222, 29);
+            this.textBox3.TabIndex = 7;
             // 
-            // SearchBoxSplitContainer.Panel2
+            // textBox4
             // 
-            this.SearchBoxSplitContainer.Panel2.Controls.Add(this.SearchButton);
-            this.SearchBoxSplitContainer.Panel2.Padding = new System.Windows.Forms.Padding(25);
-            this.SearchBoxSplitContainer.Size = new System.Drawing.Size(786, 88);
-            this.SearchBoxSplitContainer.SplitterDistance = 580;
-            this.SearchBoxSplitContainer.TabIndex = 0;
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox4.Location = new System.Drawing.Point(116, 72);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.PlaceholderText = "Search for a Station ...";
+            this.textBox4.Size = new System.Drawing.Size(221, 29);
+            this.textBox4.TabIndex = 6;
             // 
-            // SearchBox
+            // label1
             // 
-            this.SearchBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.SearchBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.SearchBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SearchBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SearchBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.SearchBox.Location = new System.Drawing.Point(25, 27);
-            this.SearchBox.Margin = new System.Windows.Forms.Padding(20);
-            this.SearchBox.Name = "SearchBox";
-            this.SearchBox.PlaceholderText = "  Search for a station ...";
-            this.SearchBox.Size = new System.Drawing.Size(530, 34);
-            this.SearchBox.TabIndex = 0;
-            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
-            this.SearchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchBox_KeyDown);
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(75, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 35);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "From";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SearchButton
+            // label2
             // 
-            this.SearchButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SearchButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SearchButton.Location = new System.Drawing.Point(25, 25);
-            this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(152, 38);
-            this.SearchButton.TabIndex = 0;
-            this.SearchButton.Text = "Search";
-            this.SearchButton.UseVisualStyleBackColor = true;
-            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(91, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(19, 35);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "To";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dataGridView1
+            // textBox2
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(786, 319);
-            this.dataGridView1.TabIndex = 0;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox2.Location = new System.Drawing.Point(3, 72);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.PlaceholderText = "Search for a Station ...";
+            this.textBox2.Size = new System.Drawing.Size(107, 29);
+            this.textBox2.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Location = new System.Drawing.Point(116, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.PlaceholderText = "Search for a Station ...";
+            this.textBox1.Size = new System.Drawing.Size(221, 29);
+            this.textBox1.TabIndex = 2;
+            // 
+            // connectionGrid
+            // 
+            this.connectionGrid.AllowUserToDeleteRows = false;
+            this.connectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.connectionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.connectionGrid.Location = new System.Drawing.Point(0, 0);
+            this.connectionGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.connectionGrid.Name = "connectionGrid";
+            this.connectionGrid.ReadOnly = true;
+            this.connectionGrid.RowHeadersWidth = 51;
+            this.connectionGrid.RowTemplate.Height = 29;
+            this.connectionGrid.Size = new System.Drawing.Size(686, 214);
+            this.connectionGrid.TabIndex = 0;
+            // 
+            // TabControl
+            // 
+            this.TabControl.Controls.Add(this.TimetableTab);
+            this.TabControl.Controls.Add(this.StationsNearbyTab);
+            this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl.Location = new System.Drawing.Point(0, 0);
+            this.TabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TabControl.Name = "TabControl";
+            this.TabControl.SelectedIndex = 0;
+            this.TabControl.Size = new System.Drawing.Size(700, 338);
+            this.TabControl.TabIndex = 0;
+            this.TabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl_Selected);
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(700, 338);
             this.Controls.Add(this.TabControl);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainWindow";
             this.Text = "Form1";
+            this.TimetableTab.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionGrid)).EndInit();
             this.TabControl.ResumeLayout(false);
-            this.StationTableTab.ResumeLayout(false);
-            this.TimeTableSplitContainer.Panel1.ResumeLayout(false);
-            this.TimeTableSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.TimeTableSplitContainer)).EndInit();
-            this.TimeTableSplitContainer.ResumeLayout(false);
-            this.SearchBoxSplitContainer.Panel1.ResumeLayout(false);
-            this.SearchBoxSplitContainer.Panel1.PerformLayout();
-            this.SearchBoxSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SearchBoxSplitContainer)).EndInit();
-            this.SearchBoxSplitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private TabControl TabControl;
         private TabPage StationsNearbyTab;
-        private TabPage StationTableTab;
         private TabPage TimetableTab;
-        private SplitContainer TimeTableSplitContainer;
-        private SplitContainer SearchBoxSplitContainer;
-        private TextBox SearchBox;
-        private Button SearchButton;
-        private DataGridView dataGridView1;
+        private SplitContainer splitContainer1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label label3;
+        private Label label4;
+        private TextBox textBox3;
+        private TextBox textBox4;
+        private Label label1;
+        private Label label2;
+        private TextBox textBox2;
+        private TextBox textBox1;
+        private DataGridView connectionGrid;
+        private TabControl TabControl;
     }
 }
