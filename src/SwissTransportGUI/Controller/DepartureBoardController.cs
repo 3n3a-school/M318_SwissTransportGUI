@@ -40,7 +40,9 @@ namespace SwissTransportGUI.View.Controller
                 {
                     Line = $"{entry.Category}{entry.Number}",
                     DepartureTime = entry.Stop.Departure.ToString("HH:mm"),
-                    Direction = entry.To
+                    Direction = entry.To,
+                    Delays = entry.Stop.Delay,
+                    Platform = entry.Stop.Platform,                    
                 });
             }
         }

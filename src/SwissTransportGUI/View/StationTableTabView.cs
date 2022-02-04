@@ -17,7 +17,12 @@ namespace SwissTransportGUI.View
         private TextBox SearchBox { get; set; }
         private ListBox AutoSuggestList { get; set; }
         private Button SearchButton { get; set; }
-        private DataGridView dataGridView1 { get; set; }
+        private DataGridView StationTableGrid { get; set; }
+        private DataGridViewTextBoxColumn LineColumn { get; set; }
+        private DataGridViewTextBoxColumn DepartureColumn { get; set; }
+        private DataGridViewTextBoxColumn DirectionColumn { get; set; }
+        private DataGridViewTextBoxColumn PlatformColumn { get; set; }
+        private DataGridViewTextBoxColumn DelaysColumn { get; set; }
 
         private DepartureBoardController StationTableController { get; }
         private StationSearch StationSearcher { get; set; }
@@ -47,9 +52,9 @@ namespace SwissTransportGUI.View
                 Padding = new Padding(3),
                 Size = new Size(792, 417),
                 TabIndex = 2,
-                Text = "Station Table",
+                Text = "Departure Board",
             };
-            
+
 
             // 
             // TimeTableSplitContainer
@@ -74,7 +79,7 @@ namespace SwissTransportGUI.View
                     BackColor= Color.White,
                 }
             };
-            
+
 
             // 
             // SearchBoxSplitContainer
@@ -89,14 +94,14 @@ namespace SwissTransportGUI.View
                 SplitterDistance = 580,
                 TabIndex = 0,
                 Panel1 = {
-                    Padding = new Padding(25, 27, 25, 25),
+                    Padding = new Padding(25, 27, 0, 25),
                 },
                 Panel2 =
                 {
-                    Padding = new Padding(25),
+                    Padding = new Padding(0, 26, 25, 31),
                 }
             };
-            
+
 
             // 
             // SearchBox
@@ -115,7 +120,7 @@ namespace SwissTransportGUI.View
                 Size = new Size(530, 34),
                 TabIndex = 0,
             };
-            
+
             //
             // AutoSuggestList
             //
@@ -131,8 +136,8 @@ namespace SwissTransportGUI.View
                 DataSource = StationSearcher.StationSuggestions,
                 ValueMember = "Id",
                 DisplayMember = "Name",
-                Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))),
+                Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right))),
                 IntegralHeight = true,
                 Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point),
             };
@@ -151,51 +156,114 @@ namespace SwissTransportGUI.View
                 Text = "Search",
                 UseVisualStyleBackColor = true,
             };
-            
+
 
             // 
-            // dataGridView1
+            // stationTableGrid & its Columns
             // 
-            this.dataGridView1 = new DataGridView()
+            this.StationTableGrid = new DataGridView()
             {
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
                 AllowUserToResizeColumns = false,
                 AllowUserToResizeRows = false,
-                ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize,
-                Dock = System.Windows.Forms.DockStyle.Fill,
-                Location = new System.Drawing.Point(0, 0),
-                Margin = new System.Windows.Forms.Padding(3, 2, 3, 2),
+                AllowUserToOrderColumns = false,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
+                Cursor = Cursors.Default,
+                Dock = DockStyle.Fill,
+                Location = new Point(0, 0),
+                Margin = new Padding(3, 2, 3, 2),
                 Name = "stationTableGrid",
                 ReadOnly = true,
+                RowHeadersVisible = false, // weird first column
                 RowHeadersWidth = 51,
                 RowTemplate = {
                     Height = 29
                 },
-                Size = new System.Drawing.Size(686, 215),
+                Enabled = true,
+                Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point),
+                Size = new Size(686, 215),
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 TabIndex = 0,
-                DataSource = StationTableController.DepartureBoardEntries
+                DataSource = StationTableController.DepartureBoardEntries,
+
+            };
+            this.LineColumn = new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Line", // Name of Field in BindingList
+                HeaderText = "Line",
+                Name = "LineColumn",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                Width = 100,
+            };
+            this.DepartureColumn = new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "DepartureTime", // Name of Field in BindingList
+                HeaderText = "Departure",
+                Name = "DepartureColumn",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            this.DirectionColumn = new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Direction", // Name of Field in BindingList
+                HeaderText = "Direction",
+                Name = "DirectionColumn",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            this.DelaysColumn = new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Delays", // Name of Field in BindingList
+                HeaderText = "Delay",
+                Name = "DelaysColumn",
+            };
+            this.PlatformColumn = new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Platform", // Name of Field in BindingList
+                HeaderText = "Platform",
+                Name = "PlatformColumn",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                Width = 100,
             };
 
+            this.StationTableGrid.Columns.AddRange(new DataGridViewColumn[] {
+                this.LineColumn,
+                this.DepartureColumn,
+                this.DirectionColumn,
+                this.PlatformColumn,
+                this.DelaysColumn,
+            });
             this.StationTableTab.Controls.Add(this.TimeTableSplitContainer);
             this.TimeTableSplitContainer.Panel1.Controls.Add(this.SearchBoxSplitContainer);
-            this.TimeTableSplitContainer.Panel2.Controls.Add(this.dataGridView1);
+            this.TimeTableSplitContainer.Panel2.Controls.Add(this.StationTableGrid);
             this.SearchBoxSplitContainer.Panel1.Controls.Add(this.SearchBox);
             this.SearchBoxSplitContainer.Panel2.Controls.Add(this.SearchButton);
 
+            // Last so it's on top
             this.StationTableTab.Controls.Add(AutoSuggestList);
 
             this.StationTableTab.Paint += new PaintEventHandler(this.StationTableTab_Paint);
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
-            this.SearchBox.Click += new EventHandler(this.ShowAutoSuggestions);
+            this.SearchBox.GotFocus += new EventHandler(this.ShowAutoSuggestions);
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             this.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_SuggestItem);
+            this.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleEnter);
+        }
+
+        private void SearchBox_HandleEnter(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchButton_Click(new object(), new EventArgs());
+                e.Handled = true;
+            }
         }
 
         private void AutoSuggest_SuggestItem(object? sender, EventArgs e)
         {
             Station selectedStation = (Station)AutoSuggestList.SelectedItem;
             SearchBox.Text = selectedStation.Name;
+            SearchButton_Click(new object(), new EventArgs());
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -203,29 +271,29 @@ namespace SwissTransportGUI.View
             string stationNameQuery = SearchBox.Text;
             if (string.IsNullOrEmpty(SelectedStation.Name) == false) {
                 StationTableController.GetStationBoard(SelectedStation.Name, SelectedStation.Id);
-                AutoSuggestList.Hide();
             }
             else if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
             {
                 StationTableController.GetStationBoard(stationNameQuery);
-                AutoSuggestList.Hide();
             }
+            AutoSuggestList.Hide();
         }
 
         private void SearchBox_TextChanged(object sender, EventArgs e)
         {
             string stationNameQuery = SearchBox.Text;
-            if ((string.IsNullOrWhiteSpace(stationNameQuery) == false) && (LastProcessedSearchInput.Length < SearchBox.Text.Length))
+            if ((string.IsNullOrWhiteSpace(stationNameQuery) == false) && 
+                (LastProcessedSearchInput.Length < SearchBox.Text.Length))
             {
                 StationSearcher.GetNewStationSuggestions(stationNameQuery);
                 SelectedStation = StationSearcher.StationSuggestions[0];
-                AutoSuggestList.Visible = true;
+                AutoSuggestList.Show();
                 AutoSuggestList.BringToFront();
             }
 
             if (stationNameQuery.Length < 1)
             {
-                AutoSuggestList.Visible = false;
+                AutoSuggestList.Hide();
             }
             LastProcessedSearchInput = stationNameQuery;
         }
@@ -238,7 +306,7 @@ namespace SwissTransportGUI.View
 
         private void ShowAutoSuggestions(object sender, EventArgs e)
         {
-            AutoSuggestList.Visible = true;
+            AutoSuggestList.Show();
         }
     }
 }

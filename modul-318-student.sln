@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissTransport", "src\Swiss
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissTransportTest", "tests\SwissTransportTest\SwissTransportTest.csproj", "{959C6E54-5B1C-40F5-938A-C57B17451421}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTransportGUI", "src\SwissTransportGUI\SwissTransportGUI.csproj", "{F83789DE-D26B-4FF1-9AA2-3BB1AFE851A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissTransportGUI", "src\SwissTransportGUI\SwissTransportGUI.csproj", "{F83789DE-D26B-4FF1-9AA2-3BB1AFE851A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C5B733E7-3440-43F6-B737-5B87B0FEDD17}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
