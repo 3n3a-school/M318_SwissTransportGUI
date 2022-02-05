@@ -196,7 +196,6 @@ namespace SwissTransportGUI.View
 
             this.StationTableTab.Paint += new PaintEventHandler(this.StationTableTab_Paint);
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
-            this.SearchComponent.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleEnter);
             this.SearchComponent.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_Click);
         }
 
@@ -223,14 +222,6 @@ namespace SwissTransportGUI.View
         {
             this.SearchComponent.SearchBox.Focus();
             
-        }
-        private void SearchBox_HandleEnter(object? sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SearchButton_Click(new object(), new EventArgs());
-                e.Handled = true;
-            }
         }
     }
 }

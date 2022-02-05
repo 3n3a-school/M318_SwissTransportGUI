@@ -8,9 +8,9 @@ namespace SwissTransportGUI.View
         private SplitContainer splitContainer1 { get; set; } = new();
         private TableLayoutPanel tableLayoutPanel1 { get; set; } = new();
         private Label toLabel { get; set; } = new();
-        private TextBox toBox { get; set; } = new();
+        private StationSearchComponent toBox { get; set; } = new(0,0);
         private Label viaLabel { get; set; } = new();
-        private TextBox fromBox { get; set; } = new();
+        private StationSearchComponent fromBox { get; set; } = new(0,0);
         private DataGridView connectionGrid { get; set; } = new();
         private DataGridViewTextBoxColumn FromStation { get; set; } = new();
         private DataGridViewTextBoxColumn FromStationDepartureTime { get; set; } = new();
@@ -18,11 +18,11 @@ namespace SwissTransportGUI.View
         private DataGridViewTextBoxColumn ToStationArrivalTime { get; set; } = new();
         private DataGridViewTextBoxColumn Duration { get; set; } = new();
         private DataGridViewTextBoxColumn Delay { get; set; } = new();
-        private TextBox viaBox { get; set; } = new();
+        private StationSearchComponent viaBox { get; set; } = new(0,0);
         private Label fromLabel { get; set; } = new();
+        private Button SearchButton { get; set; } = new();
 
         private ConnectionSearchController ConnectionController { get; set; }
-
 
         public TimetableTabView() {
             ConnectionController = new ConnectionSearchController();
@@ -30,7 +30,6 @@ namespace SwissTransportGUI.View
             InitControls();
 
             connectionGrid.DataSource = ConnectionController.Connections;
-            ConnectionController.GetConnections("Luzern", "Zürich");
         }
 
         private void InitControls()
@@ -50,7 +49,7 @@ namespace SwissTransportGUI.View
                 TabIndex = 0,
                 Text = "Timetable",
             };
-            
+
 
             // 
             // splitContainer1
@@ -83,7 +82,7 @@ namespace SwissTransportGUI.View
                 Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
                     | AnchorStyles.Left)
                     | AnchorStyles.Right))),
-                ColumnCount = 4,
+                ColumnCount = 5,
                 Location = new Point(0, 2),
                 Margin = new Padding(3, 2, 3, 2),
                 Name = "tableLayoutPanel1",
@@ -109,18 +108,8 @@ namespace SwissTransportGUI.View
             // 
             // toBox
             // 
-            this.toBox = new TextBox()
-            {
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point),
-                Location = new Point(116, 44),
-                Margin = new Padding(3, 2, 3, 2),
-                Name = "toBox",
-                PlaceholderText = "Search for a Station ...",
-                Size = new Size(221, 29),
-                TabIndex = 7,
-            };
+            this.toBox = new StationSearchComponent(116, 44);
+            this.toBox.SearchBox.Margin = new Padding(0, 10, 0, 10);
 
             // 
             // viaLabel
@@ -136,44 +125,25 @@ namespace SwissTransportGUI.View
                 Text = "Via",
                 TextAlign = ContentAlignment.MiddleCenter,
             };
-            
+
 
             // 
             // viaBox
             // 
-            this.viaBox = new TextBox()
-            {
-                Dock = DockStyle.Fill,
-                BorderStyle = BorderStyle.FixedSingle,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point),
-                Location = new Point(456, 2),
-                Margin = new Padding(3, 2, 3, 2),
-                Name = "viaBox",
-                PlaceholderText = "Search for a Station ...",
-                Size = new Size(222, 29),
-                TabIndex = 3,
-            };
-            
+            this.viaBox = new StationSearchComponent(456, 2);
+            this.viaBox.SearchBox.Margin = new Padding(0, 10, 0, 10);
+
 
             // 
             // fromBox
             // 
-            this.fromBox = new TextBox() { 
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point),
-                Location = new Point(116, 2),
-                Margin = new Padding(3, 2, 3, 2),
-                Name = "fromBox",
-                PlaceholderText = "Search for a Station ...",
-                Size = new Size(221, 29),
-                TabIndex = 2,
-            };
+            this.fromBox = new StationSearchComponent(116, 2);
+            this.fromBox.SearchBox.Margin = new Padding(0, 10, 0, 10);
 
             // 
             // fromLabel
             // 
-            this.fromLabel = new Label() { 
+            this.fromLabel = new Label() {
                 Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Right))),
                 AutoSize = true,
                 Location = new Point(75, 0),
@@ -185,9 +155,26 @@ namespace SwissTransportGUI.View
             };
 
             // 
+            // SearchButton
+            // 
+            this.SearchButton = new Button()
+            {
+                Cursor = Cursors.Hand,
+                Dock = DockStyle.Fill,
+                Location = new Point(25, 25),
+                Name = "SearchButton",
+                Size = new Size(152, 38),
+                TabIndex = 0,
+                Text = "Search",
+                UseVisualStyleBackColor = true,
+            };
+
+            // TODO: add date & time fields
+
+            // 
             // connectionGrid
             // 
-            this.connectionGrid = new DataGridView() { 
+            this.connectionGrid = new DataGridView() {
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
                 AllowUserToResizeColumns = false,
@@ -213,7 +200,7 @@ namespace SwissTransportGUI.View
             // 
             // FromStation
             // 
-            this.FromStation = new DataGridViewTextBoxColumn() { 
+            this.FromStation = new DataGridViewTextBoxColumn() {
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 DataPropertyName = "FromStation",
                 HeaderText = "From",
@@ -224,7 +211,7 @@ namespace SwissTransportGUI.View
             // 
             // FromStationDepartureTime
             // 
-            this.FromStationDepartureTime = new DataGridViewTextBoxColumn() { 
+            this.FromStationDepartureTime = new DataGridViewTextBoxColumn() {
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 DataPropertyName = "FromStationDepartureTime",
                 HeaderText = "Departure",
@@ -235,7 +222,7 @@ namespace SwissTransportGUI.View
             // 
             // ToStation
             // 
-            this.ToStation = new DataGridViewTextBoxColumn() { 
+            this.ToStation = new DataGridViewTextBoxColumn() {
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 DataPropertyName = "ToStation",
                 HeaderText = "To",
@@ -246,7 +233,7 @@ namespace SwissTransportGUI.View
             // 
             // ToStationArrivalTime
             // 
-            this.ToStationArrivalTime = new DataGridViewTextBoxColumn() { 
+            this.ToStationArrivalTime = new DataGridViewTextBoxColumn() {
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 DataPropertyName = "ToStationArrivalTime",
                 HeaderText = "Arrival",
@@ -257,7 +244,7 @@ namespace SwissTransportGUI.View
             // 
             // Duration
             // 
-            this.Duration = new DataGridViewTextBoxColumn() { 
+            this.Duration = new DataGridViewTextBoxColumn() {
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 DataPropertyName = "Duration",
                 HeaderText = "Duration",
@@ -268,30 +255,34 @@ namespace SwissTransportGUI.View
             // 
             // Delay
             // 
-            this.Delay = new DataGridViewTextBoxColumn() { 
+            this.Delay = new DataGridViewTextBoxColumn() {
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 DataPropertyName = "Delay",
                 HeaderText = "Delay",
                 Name = "Delay",
                 ReadOnly = true,
             };
-            
+
             // Adding Elements to Containers
             this.TimetableTab.Controls.Add(this.splitContainer1);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer1.Panel2.Controls.Add(this.connectionGrid);
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66666F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33334F));
+
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.toLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.toBox, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.viaLabel, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.viaBox, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.fromBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.fromLabel, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.fromBox.SearchBox, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.toLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.toBox.SearchBox, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.viaLabel, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.viaBox.SearchBox, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.SearchButton, 4, 1);
+
             this.connectionGrid.Columns.AddRange(new DataGridViewColumn[] {
                 this.FromStation,
                 this.FromStationDepartureTime,
@@ -301,14 +292,24 @@ namespace SwissTransportGUI.View
                 this.Delay
             });
 
+            // Last so they're on top
+            this.TimetableTab.Controls.Add(this.fromBox.AutoSuggestList);
+            this.TimetableTab.Controls.Add(this.toBox.AutoSuggestList);
+            this.TimetableTab.Controls.Add(this.viaBox.AutoSuggestList);
 
             // Initializing Event Handlers
             this.TimetableTab.Paint += new PaintEventHandler(this.TimetableTab_Paint);
+            this.SearchButton.Click += new EventHandler(this.SearchButton_Click);
+        }
+
+        private void SearchButton_Click(object? sender, EventArgs e)
+        {
+            ConnectionController.GetConnections(fromBox.SelectedStation.Name, toBox.SelectedStation.Name);
         }
 
         private void TimetableTab_Paint(object sender, PaintEventArgs e)
         {
-
+            this.fromBox.SearchBox.Focus();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SwissTransportGUI.View
         /// A Component to Search for a Station, with AutoSuggestions
         /// </summary>
         /// <param name="SearchBoxX">X-Coordinate of the SearchBox</param>
-        /// <param name="SearchBoxY">Y-Coordinate of the SearchBo</param>
+        /// <param name="SearchBoxY">Y-Coordinate of the SearchBox</param>
         public StationSearchComponent(int SearchBoxX, int SearchBoxY)
         {
             StationSearcher = new StationSearch();
@@ -39,8 +39,6 @@ namespace SwissTransportGUI.View
             // 
             this.SearchBox = new TextBox()
             {
-                //AutoCompleteMode = AutoCompleteMode.Suggest,
-                //AutoCompleteSource = AutoCompleteSource.CustomSource,
                 BorderStyle = BorderStyle.FixedSingle,
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point),
@@ -73,22 +71,38 @@ namespace SwissTransportGUI.View
                 Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point),
             };
 
-            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.TextChanged += new EventHandler(this.SearchBox_TextChanged);
             this.SearchBox.GotFocus += new EventHandler(this.ShowAutoSuggestions);
             this.SearchBox.Click += new EventHandler(this.ShowAutoSuggestions);
             this.SearchBox.Resize += new EventHandler(this.SearchBox_Resize);
+            this.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleKey);
             this.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_SuggestItem);
+        }
+
+        private void SearchBox_HandleKey(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AutoSuggest_SuggestItem(new object(), new EventArgs());
+                e.Handled = true;
+            }
         }
 
         private void SearchBox_Resize(object? sender, EventArgs e)
         {
             AutoSuggestList.Width = SearchBox.Width;
+            AutoSuggestList.Location = new Point()
+            {
+                X = SearchBox.Location.X + 3,
+                Y = SearchBox.Location.Y + SearchBox.Height + 2,
+            };
         }
 
         private void AutoSuggest_SuggestItem(object? sender, EventArgs e)
         {
             Station selectedStation = (Station)AutoSuggestList.SelectedItem;
             SearchBox.Text = selectedStation.Name;
+            AutoSuggestList.Hide();
         }
 
         private void SearchBox_TextChanged(object sender, EventArgs e)
