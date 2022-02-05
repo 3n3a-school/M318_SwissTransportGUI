@@ -9,8 +9,6 @@ namespace SwissTransportGUI.View
         public TabPage StationTableTab { get; set; } = new();
         private SplitContainer TimeTableSplitContainer { get; set; } = new();
         private SplitContainer SearchBoxSplitContainer { get; set; } = new();
-        private TextBox SearchBox { get; set; } = new();
-        private ListBox AutoSuggestList { get; set; } = new();
         private Button SearchButton { get; set; } = new();
         private DataGridView StationTableGrid { get; set; } = new();
         private DataGridViewTextBoxColumn LineColumn { get; set; } = new();
@@ -18,18 +16,13 @@ namespace SwissTransportGUI.View
         private DataGridViewTextBoxColumn DirectionColumn { get; set; } = new();
         private DataGridViewTextBoxColumn PlatformColumn { get; set; } = new();
         private DataGridViewTextBoxColumn DelaysColumn { get; set; } = new();
+        private StationSearchComponent SearchComponent { get; set; } = new(0, 0);
 
         private DepartureBoardController StationTableController { get; }
-        private StationSearch StationSearcher { get; set; }
-
-        private string LastProcessedSearchInput { get; set; } = "";
-        private Station SelectedStation { get; set; }
 
         public StationTableTabView()
         {
-            StationSearcher = new StationSearch();
             StationTableController = new DepartureBoardController();
-            SelectedStation = new Station();
 
             InitControls();
         }
@@ -98,46 +91,9 @@ namespace SwissTransportGUI.View
                 }
             };
 
-
-            // 
-            // SearchBox
-            // 
-            this.SearchBox = new TextBox()
-            {
-                //AutoCompleteMode = AutoCompleteMode.Suggest,
-                //AutoCompleteSource = AutoCompleteSource.CustomSource,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point),
-                Location = new Point(25, 27),
-                Margin = new Padding(20),
-                Name = "SearchBox",
-                PlaceholderText = "Search for a station ...",
-                Size = new Size(530, 34),
-                TabIndex = 0,
-            };
-
-            //
-            // AutoSuggestList
-            //
-            this.AutoSuggestList = new ListBox()
-            {
-                Location = new Point()
-                {
-                    X = SearchBox.Location.X + 3,
-                    Y = SearchBox.Location.Y + SearchBox.Height + 2,
-                },
-                Width = SearchBox.Width,
-                Visible = false,
-                DataSource = StationSearcher.StationSuggestions,
-                ValueMember = "Id",
-                DisplayMember = "Name",
-                Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
-            | AnchorStyles.Right))),
-                IntegralHeight = true,
-                Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point),
-            };
-
+            /// StationSearch Component
+            this.SearchComponent = new StationSearchComponent(25, 27);
+            
             // 
             // SearchButton
             // 
@@ -232,21 +188,42 @@ namespace SwissTransportGUI.View
             this.StationTableTab.Controls.Add(this.TimeTableSplitContainer);
             this.TimeTableSplitContainer.Panel1.Controls.Add(this.SearchBoxSplitContainer);
             this.TimeTableSplitContainer.Panel2.Controls.Add(this.StationTableGrid);
-            this.SearchBoxSplitContainer.Panel1.Controls.Add(this.SearchBox);
+            this.SearchBoxSplitContainer.Panel1.Controls.Add(this.SearchComponent.SearchBox);
             this.SearchBoxSplitContainer.Panel2.Controls.Add(this.SearchButton);
 
             // Last so it's on top
-            this.StationTableTab.Controls.Add(AutoSuggestList);
+            this.StationTableTab.Controls.Add(this.SearchComponent.AutoSuggestList);
 
             this.StationTableTab.Paint += new PaintEventHandler(this.StationTableTab_Paint);
-            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
-            this.SearchBox.GotFocus += new EventHandler(this.ShowAutoSuggestions);
-            this.SearchBox.Click += new EventHandler(this.ShowAutoSuggestions);
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
-            this.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_SuggestItem);
-            this.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleEnter);
+            this.SearchComponent.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleEnter);
+            this.SearchComponent.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_Click);
         }
 
+        private void AutoSuggest_Click(object? sender, EventArgs e)
+        {
+            SearchButton_Click(new object(), new EventArgs());
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            string stationNameQuery = this.SearchComponent.SearchBox.Text;
+            if (string.IsNullOrEmpty(this.SearchComponent.SelectedStation.Name) == false)
+            {
+                StationTableController.GetStationBoard(this.SearchComponent.SelectedStation.Name, this.SearchComponent.SelectedStation.Id);
+            }
+            else if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
+            {
+                StationTableController.GetStationBoard(stationNameQuery);
+            }
+            this.SearchComponent.AutoSuggestList.Hide();
+        }
+
+        private void StationTableTab_Paint(object sender, PaintEventArgs e)
+        {
+            this.SearchComponent.SearchBox.Focus();
+            
+        }
         private void SearchBox_HandleEnter(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -254,56 +231,6 @@ namespace SwissTransportGUI.View
                 SearchButton_Click(new object(), new EventArgs());
                 e.Handled = true;
             }
-        }
-
-        private void AutoSuggest_SuggestItem(object? sender, EventArgs e)
-        {
-            Station selectedStation = (Station)AutoSuggestList.SelectedItem;
-            SearchBox.Text = selectedStation.Name;
-            SearchButton_Click(new object(), new EventArgs());
-        }
-
-        private void SearchButton_Click(object sender, EventArgs e)
-        {
-            string stationNameQuery = SearchBox.Text;
-            if (string.IsNullOrEmpty(SelectedStation.Name) == false) {
-                StationTableController.GetStationBoard(SelectedStation.Name, SelectedStation.Id);
-            }
-            else if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
-            {
-                StationTableController.GetStationBoard(stationNameQuery);
-            }
-            AutoSuggestList.Hide();
-        }
-
-        private void SearchBox_TextChanged(object sender, EventArgs e)
-        {
-            string stationNameQuery = SearchBox.Text;
-            if ((string.IsNullOrWhiteSpace(stationNameQuery) == false) && 
-                (LastProcessedSearchInput.Length < SearchBox.Text.Length))
-            {
-                StationSearcher.GetNewStationSuggestions(stationNameQuery);
-                SelectedStation = StationSearcher.StationSuggestions[0];
-                AutoSuggestList.Show();
-                AutoSuggestList.BringToFront();
-            }
-
-            if (stationNameQuery.Length < 1)
-            {
-                AutoSuggestList.Hide();
-            }
-            LastProcessedSearchInput = stationNameQuery;
-        }
-
-        private void StationTableTab_Paint(object sender, PaintEventArgs e)
-        {
-            SearchBox.Focus();
-            AutoSuggestList.Width = SearchBox.Width;
-        }
-
-        private void ShowAutoSuggestions(object sender, EventArgs e)
-        {
-            AutoSuggestList.Show();
         }
     }
 }
