@@ -20,6 +20,10 @@ namespace SwissTransportGUI.View
         private DataGridViewTextBoxColumn Delay { get; set; } = new();
         private StationSearchComponent viaBox { get; set; } = new(0,0);
         private Label fromLabel { get; set; } = new();
+        private Label DateLabel { get; set; } = new();
+        private Label TimeLabel { get; set; } = new();
+        private DateTimePicker DatePicker { get; set; } = new();
+        private DateTimePicker TimePicker { get; set; } = new();
         private Button SearchButton { get; set; } = new();
 
         private ConnectionSearchController ConnectionController { get; set; }
@@ -155,6 +159,63 @@ namespace SwissTransportGUI.View
             };
 
             // 
+            // DateLabel
+            // 
+            this.DateLabel = new Label()
+            {
+                Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Right))),
+                AutoSize = true,
+                Location = new Point(427, 0),
+                Name = "DateLabel",
+                Size = new Size(23, 42),
+                TabIndex = 1,
+                Text = "Date",
+                TextAlign = ContentAlignment.MiddleCenter,
+            };
+
+            // 
+            // TimeLabel
+            // 
+            this.TimeLabel = new Label()
+            {
+                Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Right))),
+                AutoSize = true,
+                Location = new Point(427, 0),
+                Name = "TimeLabel",
+                Size = new Size(23, 42),
+                TabIndex = 1,
+                Text = "Time",
+                TextAlign = ContentAlignment.MiddleCenter,
+            };
+
+            //
+            // DatePicker
+            //
+            this.DatePicker = new DateTimePicker()
+            {
+                Format = DateTimePickerFormat.Short,
+                Location = new Point(0,0),
+                MaxDate = DateTime.Today.AddDays(14), // in 2 Weeks
+                MinDate = DateTime.Today,
+                Value = DateTime.Today,
+                Dock = DockStyle.Fill,
+            };
+
+            //
+            // TimePicker
+            //
+            this.TimePicker = new DateTimePicker()
+            {
+                Format = DateTimePickerFormat.Time,
+                Location = new Point(0, 0),
+                ShowUpDown = true,
+                MaxDate = new DateTime(2022, 1, 1, 23, 59, 59),
+                MinDate = new DateTime(2022, 1, 1, 0, 0, 0),
+                Value = new DateTime(2022, 1, 1, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second),
+                Dock = DockStyle.Fill,
+            };
+
+            // 
             // SearchButton
             // 
             this.SearchButton = new Button()
@@ -168,8 +229,6 @@ namespace SwissTransportGUI.View
                 Text = "Search",
                 UseVisualStyleBackColor = true,
             };
-
-            // TODO: add date & time fields
 
             // 
             // connectionGrid
@@ -278,9 +337,13 @@ namespace SwissTransportGUI.View
             this.tableLayoutPanel1.Controls.Add(this.fromLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.fromBox.SearchBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.toLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.toBox.SearchBox, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.viaLabel, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.viaBox.SearchBox, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.toBox.SearchBox, 1, 1);
+            //this.tableLayoutPanel1.Controls.Add(this.viaBox.SearchBox, 3, 0);
+            //this.tableLayoutPanel1.Controls.Add(this.viaLabel, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.DateLabel, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.TimeLabel, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.DatePicker, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.TimePicker, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.SearchButton, 4, 1);
 
             this.connectionGrid.Columns.AddRange(new DataGridViewColumn[] {
@@ -304,7 +367,7 @@ namespace SwissTransportGUI.View
 
         private void SearchButton_Click(object? sender, EventArgs e)
         {
-            ConnectionController.GetConnections(fromBox.SelectedStation.Name, toBox.SelectedStation.Name);
+            ConnectionController.GetConnections(fromBox.SelectedStation.Name, toBox.SelectedStation.Name, DatePicker.Value, TimePicker.Value);
         }
 
         private void TimetableTab_Paint(object sender, PaintEventArgs e)

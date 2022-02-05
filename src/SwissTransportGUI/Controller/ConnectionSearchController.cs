@@ -25,12 +25,12 @@ namespace SwissTransportGUI.Controller
         }
 
         public void GetConnections(string fromStation, string toStation) 
-            => GetConnections(fromStation, toStation, _connectionDisplayLimit, DateTime.Now, DateTime.Now);
+            => GetConnections(fromStation, toStation, DateTime.Now, DateTime.Now);
 
-        public void GetConnections(string fromStation, string toStation, int connectionLimit, DateTime departureDate,
+        public void GetConnections(string fromStation, string toStation, DateTime departureDate,
             DateTime departureTime)
         {
-            Connections connections = Transport.GetConnections(fromStation, toStation, connectionLimit, departureDate, departureTime);
+            Connections connections = Transport.GetConnections(fromStation, toStation, _connectionDisplayLimit, departureDate, departureTime);
             foreach (Connection connection in connections.ConnectionList)
             {
                 

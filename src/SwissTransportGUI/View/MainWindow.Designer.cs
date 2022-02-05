@@ -74,6 +74,6 @@
 
         private TabControl TabControl;
         private TabPage StationsNearbyTab;
-        
+        private DateTimePicker dateTimePicker1;
     }
 }
