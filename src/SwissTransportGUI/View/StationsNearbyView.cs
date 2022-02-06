@@ -134,6 +134,7 @@ namespace SwissTransportGUI.View
                     this.MapControl.Position = newLocation;
 
                     MapMarkers.Clear();
+
                     Stations nearbyStations = transport.GetStations((double)this.SearchComponent.SelectedStation.Coordinate.XCoordinate,
                         (double)this.SearchComponent.SelectedStation.Coordinate.YCoordinate);
                     foreach (Station station in nearbyStations.StationList)
@@ -146,6 +147,8 @@ namespace SwissTransportGUI.View
                             Console.WriteLine($"Marker {station.Name} X {newMarker.Lat} Y {newMarker.Lng}");
                         }
                     }
+                    
+                    MapMarkers.Markers.Add(new GMarkerGoogle(newLocation, GMarkerGoogleType.blue_dot));
                 }
                 this.SearchComponent.AutoSuggestList.Hide();
             }
