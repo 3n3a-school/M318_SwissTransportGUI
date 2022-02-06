@@ -2,6 +2,8 @@
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
+using SwissTransport.Core;
+using SwissTransport.Models;
 
 namespace SwissTransportGUI.View
 {
@@ -16,8 +18,12 @@ namespace SwissTransportGUI.View
         private GMapControl MapControl { get; set; } = new();
         private GMapOverlay MapMarkers { get; set; } = new();
 
+        private ITransport transport { get; set; }
+
     public StationsNearbyView()
         {
+            transport = new Transport();
+
             InitControls(); 
         }
 
@@ -126,7 +132,16 @@ namespace SwissTransportGUI.View
                     PointLatLng newLocation = new PointLatLng((double)this.SearchComponent.SelectedStation.Coordinate.XCoordinate,
                         (double)this.SearchComponent.SelectedStation.Coordinate.YCoordinate);
                     this.MapControl.Position = newLocation;
-                    MapMarkers.Markers.Add(new GMarkerGoogle(newLocation, GMarkerGoogleType.red));                    
+
+                    MapMarkers.Clear();
+                    Stations nearbyStations = transport.GetStations((double)this.SearchComponent.SelectedStation.Coordinate.XCoordinate,
+                        (double)this.SearchComponent.SelectedStation.Coordinate.YCoordinate);
+                    foreach (Station station in nearbyStations.StationList)
+                    {
+                        MapControl.Zoom = 16;
+                        PointLatLng newMarker = new PointLatLng((double)station.Coordinate.XCoordinate, (double)station.Coordinate.YCoordinate);
+                        MapMarkers.Markers.Add(new GMarkerGoogle(newMarker, GMarkerGoogleType.red));                    
+                    }
                 }
                 this.SearchComponent.AutoSuggestList.Hide();
             }

@@ -23,6 +23,25 @@
             return this.GetObject<Stations>(uri);
         }
 
+
+        /// <summary>
+        /// Gets Locations (Stations) based on given Coordinates
+        /// </summary>
+        /// <param name="xCoord">The X-Coordinate</param>
+        /// <param name="yCoord">The Y-Coordinate</param>
+        /// <returns>List of Stations</returns>
+        /// <exception cref="ArgumentOutOfRangeException">No valid coordinates provided</exception>
+        public Stations GetStations(double xCoord, double yCoord)
+        {
+            if (xCoord <= 0 && yCoord <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(xCoord));
+            }
+
+            var uri = new Uri($"{WebApiHost}locations?x={xCoord}&y={yCoord}&type=station");
+            return this.GetObject<Stations>(uri);
+        }
+
         public StationBoardRoot GetStationBoard(string station, string id)
         {
             if (string.IsNullOrEmpty(station))
