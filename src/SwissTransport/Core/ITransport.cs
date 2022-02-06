@@ -2,12 +2,15 @@
 
 namespace SwissTransport.Core
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using SwissTransport.Models;
 
     public interface ITransport
     {
         Stations GetStations(string query);
+
+        Stations GetStations(double xCoord, double yCoord);
 
         StationBoardRoot GetStationBoard(string station, string id);
 

@@ -10,6 +10,7 @@ public partial class MainWindow : Form
 
     private StationTableTabView StationTableTabView { get; set; }
     private TimetableTabView TimetableTabView { get; set;}
+    private StationsNearbyView StationsNearbyView { get; set;}
 
     public MainWindow()
     {
@@ -17,9 +18,11 @@ public partial class MainWindow : Form
         
         StationTableTabView = new StationTableTabView();
         TimetableTabView = new TimetableTabView();
+        StationsNearbyView = new StationsNearbyView();
 
         TabControl.TabPages.AddRange(new TabPage[] {
             TimetableTabView.TimetableTab,
+            StationsNearbyView.StationsNearbyTab,
             StationTableTabView.StationTableTab,
         });
 
