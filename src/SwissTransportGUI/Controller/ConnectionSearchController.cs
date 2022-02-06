@@ -30,6 +30,7 @@ namespace SwissTransportGUI.Controller
         public void GetConnections(string fromStation, string toStation, DateTime departureDate,
             DateTime departureTime)
         {
+            Connections.Clear();
             Connections connections = Transport.GetConnections(fromStation, toStation, _connectionDisplayLimit, departureDate, departureTime);
             foreach (Connection connection in connections.ConnectionList)
             {

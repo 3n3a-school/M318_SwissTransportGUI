@@ -27,6 +27,8 @@ namespace SwissTransportGUI.View
         private Button SearchButton { get; set; } = new();
 
         private ConnectionSearchController ConnectionController { get; set; }
+        private bool DatePicker_Clicked { get; set; } = false;
+        private bool TimePicker_Clicked { get; set; } = false;
 
         public TimetableTabView() {
             ConnectionController = new ConnectionSearchController();
@@ -222,6 +224,7 @@ namespace SwissTransportGUI.View
             {
                 Cursor = Cursors.Hand,
                 Dock = DockStyle.Fill,
+                Enabled = false,
                 Location = new Point(25, 25),
                 Name = "SearchButton",
                 Size = new Size(152, 38),
@@ -363,11 +366,52 @@ namespace SwissTransportGUI.View
             // Initializing Event Handlers
             this.TimetableTab.Paint += new PaintEventHandler(this.TimetableTab_Paint);
             this.SearchButton.Click += new EventHandler(this.SearchButton_Click);
+            this.fromBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
+            this.toBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
+            this.DatePicker.ValueChanged += new EventHandler(this.DatePicker_ValueChange);
+            this.TimePicker.ValueChanged += new EventHandler(this.TimePicker_ValueChange);
+        }
+
+        private void TimePicker_ValueChange(object? sender, EventArgs e)
+        {
+            TimePicker_Clicked = true;
+        }
+
+        private void DatePicker_ValueChange(object? sender, EventArgs e)
+        {
+            DatePicker_Clicked = true;
+        }
+
+        private void CheckFields_Completion(object? sender, EventArgs e)
+        {
+            // Enable Search Button, if from and to filled out
+            if (string.IsNullOrWhiteSpace(this.fromBox.SearchBox.Text) == false
+                && string.IsNullOrWhiteSpace(this.toBox.SearchBox.Text) == false)
+            {
+                this.SearchButton.Enabled = true;
+            } else
+            {
+                this.SearchButton.Enabled = false;
+            }
         }
 
         private void SearchButton_Click(object? sender, EventArgs e)
         {
-            ConnectionController.GetConnections(fromBox.SelectedStation.Name, toBox.SelectedStation.Name, DatePicker.Value, TimePicker.Value);
+            try
+            {
+                if (this.TimePicker_Clicked && this.DatePicker_Clicked)
+                {
+                    ConnectionController.GetConnections(fromBox.SelectedStation.Name, toBox.SelectedStation.Name, DatePicker.Value, TimePicker.Value);
+                }
+                else
+                {
+                    ConnectionController.GetConnections(fromBox.SelectedStation.Name, toBox.SelectedStation.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to get connection. Error occurred: {ex.Message}");
+            } 
         }
 
         private void TimetableTab_Paint(object sender, PaintEventArgs e)

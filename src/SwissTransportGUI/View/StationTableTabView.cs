@@ -101,6 +101,7 @@ namespace SwissTransportGUI.View
             {
                 Cursor = Cursors.Hand,
                 Dock = DockStyle.Fill,
+                Enabled = false,
                 Location = new Point(25, 25),
                 Name = "SearchButton",
                 Size = new Size(152, 38),
@@ -197,6 +198,18 @@ namespace SwissTransportGUI.View
             this.StationTableTab.Paint += new PaintEventHandler(this.StationTableTab_Paint);
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             this.SearchComponent.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_Click);
+            this.SearchComponent.SearchBox.TextChanged += new EventHandler(this.CheckInput);
+        }
+
+        private void CheckInput(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.SearchComponent.SearchBox.Text) == false)
+            {
+                this.SearchButton.Enabled = true;
+            } else
+            {
+                this.SearchButton.Enabled = false;
+            }
         }
 
         private void AutoSuggest_Click(object? sender, EventArgs e)
@@ -206,16 +219,24 @@ namespace SwissTransportGUI.View
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            string stationNameQuery = this.SearchComponent.SearchBox.Text;
-            if (string.IsNullOrEmpty(this.SearchComponent.SelectedStation.Name) == false)
+            try
             {
-                StationTableController.GetStationBoard(this.SearchComponent.SelectedStation.Name, this.SearchComponent.SelectedStation.Id);
+                string stationNameQuery = this.SearchComponent.SearchBox.Text;
+                if (string.IsNullOrEmpty(this.SearchComponent.SelectedStation.Name) == false)
+                {
+                    StationTableController.GetStationBoard(this.SearchComponent.SelectedStation.Name, this.SearchComponent.SelectedStation.Id);
+                }
+                else if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
+                {
+                    StationTableController.GetStationBoard(stationNameQuery);
+                }
+                this.SearchComponent.AutoSuggestList.Hide();
             }
-            else if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
+            catch (Exception ex)
             {
-                StationTableController.GetStationBoard(stationNameQuery);
+                MessageBox.Show($"Departure Board failed to load. Error occurred: {ex.Message}");
             }
-            this.SearchComponent.AutoSuggestList.Hide();
+            
         }
 
         private void StationTableTab_Paint(object sender, PaintEventArgs e)

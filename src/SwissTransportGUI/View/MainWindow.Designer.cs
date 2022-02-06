@@ -28,25 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.StationsNearbyTab = new System.Windows.Forms.TabPage();
             this.TabControl = new System.Windows.Forms.TabControl();
-            this.TabControl.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // StationsNearbyTab
-            // 
-            this.StationsNearbyTab.BackColor = System.Drawing.Color.White;
-            this.StationsNearbyTab.Location = new System.Drawing.Point(4, 24);
-            this.StationsNearbyTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.StationsNearbyTab.Name = "StationsNearbyTab";
-            this.StationsNearbyTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.StationsNearbyTab.Size = new System.Drawing.Size(785, 430);
-            this.StationsNearbyTab.TabIndex = 1;
-            this.StationsNearbyTab.Text = "Stations Nearby";
             // 
             // TabControl
             // 
-            this.TabControl.Controls.Add(this.StationsNearbyTab);
             this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl.Location = new System.Drawing.Point(0, 0);
             this.TabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -65,7 +51,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainWindow";
             this.Text = "Swiss Transport";
-            this.TabControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -73,7 +58,6 @@
         #endregion
 
         private TabControl TabControl;
-        private TabPage StationsNearbyTab;
         private DateTimePicker dateTimePicker1;
     }
 }
