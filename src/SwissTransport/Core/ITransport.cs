@@ -2,6 +2,7 @@
 
 namespace SwissTransport.Core
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using SwissTransport.Models;
 

@@ -138,9 +138,13 @@ namespace SwissTransportGUI.View
                         (double)this.SearchComponent.SelectedStation.Coordinate.YCoordinate);
                     foreach (Station station in nearbyStations.StationList)
                     {
-                        MapControl.Zoom = 16;
-                        PointLatLng newMarker = new PointLatLng((double)station.Coordinate.XCoordinate, (double)station.Coordinate.YCoordinate);
-                        MapMarkers.Markers.Add(new GMarkerGoogle(newMarker, GMarkerGoogleType.red));                    
+                        if (station.Coordinate.XCoordinate != null && station.Coordinate.YCoordinate != null)
+                        {
+                            MapControl.Zoom = 16;
+                            PointLatLng newMarker = new PointLatLng((double)station.Coordinate.XCoordinate, (double)station.Coordinate.YCoordinate);
+                            MapMarkers.Markers.Add(new GMarkerGoogle(newMarker, GMarkerGoogleType.red));
+                            Console.WriteLine($"Marker {station.Name} X {newMarker.Lat} Y {newMarker.Lng}");
+                        }
                     }
                 }
                 this.SearchComponent.AutoSuggestList.Hide();

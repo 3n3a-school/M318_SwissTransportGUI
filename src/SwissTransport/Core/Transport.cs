@@ -1,6 +1,8 @@
 ﻿namespace SwissTransport.Core
 {
     using System;
+    using System.Collections.Generic;
+    using System.Globalization;
     using System.Net.Http;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
@@ -9,6 +11,7 @@
     public class Transport : ITransport, IDisposable
     {
         private const string WebApiHost = "https://transport.opendata.ch/v1/";
+        private const string SearchCHApiHost = "https://timetable.search.ch/api/";
 
         private readonly HttpClient httpClient = new HttpClient();
 
@@ -38,8 +41,33 @@
                 throw new ArgumentOutOfRangeException(nameof(xCoord));
             }
 
-            var uri = new Uri($"{WebApiHost}locations?x={xCoord}&y={yCoord}&type=station");
-            return this.GetObject<Stations>(uri);
+            var uri = new Uri($"{SearchCHApiHost}completion.json?latlon={xCoord.ToString("G", CultureInfo.InvariantCulture)},{yCoord.ToString("G", CultureInfo.InvariantCulture)}&show_coordinates=1&accuracy=50"); // accuracy in meters
+
+            List<SearchCHStation> stationList = this.GetObject<List<SearchCHStation>>(uri);
+            List<Station> resultStations = new List<Station>();
+            foreach (SearchCHStation sta in stationList)
+            {
+                Station station = new Station()
+                {
+                    Id = sta.Name,
+                    Name = sta.Name,
+                    Coordinate = new Coordinate()
+                    {
+                        Type = "coordinate",
+                        XCoordinate = sta.XCoordinate,
+                        YCoordinate = sta.YCoordinate,
+                    },
+                    Distance = sta.Distance,
+                };
+                resultStations.Add(station);
+            }
+
+            Stations result = new Stations()
+            {
+                StationList = resultStations,
+            };
+
+            return result;
         }
 
         public StationBoardRoot GetStationBoard(string station, string id)
