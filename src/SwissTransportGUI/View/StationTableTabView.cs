@@ -93,7 +93,8 @@ namespace SwissTransportGUI.View
 
             /// StationSearch Component
             this.SearchComponent = new StationSearchComponent(25, 27);
-            
+            this.SearchComponent.SearchBox.Dock = DockStyle.Fill;
+
             // 
             // SearchButton
             // 
@@ -107,7 +108,7 @@ namespace SwissTransportGUI.View
                 Size = new Size(152, 38),
                 TabIndex = 0,
                 Text = "Search",
-                UseVisualStyleBackColor = true,
+                UseVisualStyleBackColor = false,
             };
 
 

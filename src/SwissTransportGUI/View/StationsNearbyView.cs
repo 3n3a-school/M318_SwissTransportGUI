@@ -68,6 +68,7 @@ namespace SwissTransportGUI.View
 
             /// StationSearch Component
             this.SearchComponent = new StationSearchComponent(25, 27);
+            this.SearchComponent.SearchBox.Dock = DockStyle.Fill;
 
             // 
             // SearchButton
@@ -82,7 +83,7 @@ namespace SwissTransportGUI.View
                 Size = new Size(152, 38),
                 TabIndex = 0,
                 Text = "Search",
-                UseVisualStyleBackColor = true,
+                UseVisualStyleBackColor = false,
             };
 
             //
@@ -91,7 +92,7 @@ namespace SwissTransportGUI.View
             this.MapControl = new GMapControl()
             {
                 Dock = DockStyle.Fill,
-                MinZoom = 2, // below no data -> erros
+                MinZoom = 2, // below no data
                 MaxZoom = 18,
                 Zoom = 13,
                 ShowCenter = false,
@@ -117,16 +118,22 @@ namespace SwissTransportGUI.View
             this.StationsNearbyTab.Controls.Add(this.SearchComponent.AutoSuggestList);
 
             // Event Handling
+            this.StationsNearbyTab.Paint += new PaintEventHandler(this.StationsNearbyTab_Paint);
             this.SearchComponent.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_Click);
             this.SearchComponent.SearchBox.TextChanged += new EventHandler(this.CheckInput);
             this.SearchButton.Click += new EventHandler(this.SearchButton_Click);
         }
 
+        private void StationsNearbyTab_Paint(object? sender, PaintEventArgs e)
+        {
+            this.SearchComponent.SearchBox.Focus();
+        }
+
+        // TODO: Extract contents into their own functions
         private void SearchButton_Click(object? sender, EventArgs e)
         {
             try
             {
-                string stationNameQuery = this.SearchComponent.SearchBox.Text;
                 if (string.IsNullOrEmpty(this.SearchComponent.SelectedStation.Name) == false)
                 {
                     PointLatLng newLocation = new PointLatLng((double)this.SearchComponent.SelectedStation.Coordinate.XCoordinate,
@@ -172,7 +179,7 @@ namespace SwissTransportGUI.View
 
         private void AutoSuggest_Click(object? sender, EventArgs e)
         {
-           //rchButton_Click(new object(), new EventArgs());
+           SearchButton_Click(new object(), new EventArgs());
         }
     }
 }
