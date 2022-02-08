@@ -129,7 +129,6 @@ namespace SwissTransportGUI.View
             this.SearchComponent.SearchBox.Focus();
         }
 
-        // TODO: Extract contents into their own functions
         private void SearchButton_Click(object? sender, EventArgs e)
         {
             try
@@ -161,9 +160,17 @@ namespace SwissTransportGUI.View
                 if (station.Coordinate.XCoordinate != null && station.Coordinate.YCoordinate != null)
                 {
                     MapControl.Zoom = 16;
-                    PointLatLng newMarker = new PointLatLng((double)station.Coordinate.XCoordinate, (double)station.Coordinate.YCoordinate);
-                    MapMarkers.Markers.Add(new GMarkerGoogle(newMarker, GMarkerGoogleType.red));
-                    Console.WriteLine($"Marker {station.Name} X {newMarker.Lat} Y {newMarker.Lng}");
+                    PointLatLng newMarkerLocation = new PointLatLng((double)station.Coordinate.XCoordinate, (double)station.Coordinate.YCoordinate);
+                    GMapMarker newMarker = new GMarkerGoogle(newMarkerLocation, GMarkerGoogleType.red);
+                    newMarker.ToolTipText = station.Name;
+                    newMarker.ToolTip.Fill = Brushes.Black;
+                    newMarker.ToolTip.Foreground = Brushes.White;
+                    newMarker.ToolTip.Stroke = Pens.Black;
+                    newMarker.ToolTip.TextPadding = new Size(20, 20);
+
+                    MapMarkers.Markers.Add(newMarker);
+
+                    Console.WriteLine($"Marker {station.Name} X {newMarkerLocation.Lat} Y {newMarkerLocation.Lng}");
                 }
             }
 

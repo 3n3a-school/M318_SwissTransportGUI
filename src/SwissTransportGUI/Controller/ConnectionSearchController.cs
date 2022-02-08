@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GMap.NET;
 using SwissTransport.Core;
 using SwissTransport.Models;
 using SwissTransportGUI.Model;
@@ -34,9 +35,10 @@ namespace SwissTransportGUI.Controller
             Connections connections = Transport.GetConnections(fromStation, toStation, _connectionDisplayLimit, departureDate, departureTime);
             foreach (Connection connection in connections.ConnectionList)
             {
-                
                 Connections.Add(new ConnectionEntry()
                 {
+                    FromStationCoord = new PointLatLng((double)connection.From.Station.Coordinate.XCoordinate, (double)connection.From.Station.Coordinate.YCoordinate),
+                    ToStationCoord = new PointLatLng((double)connection.To.Station.Coordinate.XCoordinate, (double)connection.To.Station.Coordinate.YCoordinate),
                     FromStation = connection.From.Station.Name,
                     ToStation = connection.To.Station.Name,
                     FromStationDepartureTime = connection.From.Departure,
