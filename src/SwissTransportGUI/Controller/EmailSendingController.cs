@@ -12,7 +12,7 @@ namespace SwissTransportGUI.Controller
 {
     public class EmailSendingController
     {
-        private readonly MailboxAddress SenderAddress = new MailboxAddress("SwissTransportGUI", "swisstransportgui@mail.3n3a.ch");
+        private readonly MailboxAddress _senderAddress = new MailboxAddress("SwissTransportGUI", "swisstransportgui@mail.3n3a.ch");
         private const string SmtpServer = "smtp.eu.mailgun.org";
         private const string SmtpPass = "e0cf0378b2b6af2a459fdb6d0c5512b4-d2cc48bc-e5ffed37";
 
@@ -40,7 +40,7 @@ namespace SwissTransportGUI.Controller
             string emailSubject = "Your Connection from SwissTransportGUI";
 
             EmailMessage = new MimeMessage();
-            EmailMessage.From.Add(SenderAddress);
+            EmailMessage.From.Add(_senderAddress);
             EmailMessage.To.Add(receiverAddress);
             EmailMessage.Subject = emailSubject;
             EmailMessage.Body = new TextPart("html")
@@ -56,7 +56,7 @@ namespace SwissTransportGUI.Controller
                 SmtpClient.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
                 SmtpClient.Connect(SmtpServer, 587, false);
-                SmtpClient.Authenticate(SenderAddress.Address, SmtpPass);
+                SmtpClient.Authenticate(_senderAddress.Address, SmtpPass);
 
                 SmtpClient.Send(EmailMessage);
                 SmtpClient.Disconnect(true);
