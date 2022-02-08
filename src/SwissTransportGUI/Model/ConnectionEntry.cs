@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SwissTransportGUI.Model
 {
-    internal class ConnectionEntry
+    public class ConnectionEntry
     {
         public string FromStation { get; set; }
         public string ToStation { get; set; }

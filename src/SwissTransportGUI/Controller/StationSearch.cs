@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace SwissTransportGUI.Controller
 {
-    internal class StationSearch
+    public class StationSearch
     {
         private ITransport Transport { get; set; }
         public BindingList<Station> StationSuggestions { get; internal set; }
@@ -16,7 +16,7 @@ namespace SwissTransportGUI.Controller
             StationSuggestions = new BindingList<Station>();
         }
 
-        internal void GetNewStationSuggestions(string stationNameQuery)
+        public void GetNewStationSuggestions(string stationNameQuery)
         {
             StationSuggestions.Clear();
             List<Station> stations = Transport.GetStations(stationNameQuery).StationList;

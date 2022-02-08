@@ -40,13 +40,13 @@ namespace SwissTransportGUI.View
             this.SearchBox = new TextBox()
             {
                 BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Fill,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right,
                 Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point),
                 Location = new Point(SearchBoxX, SearchBoxY),
-                Margin = new Padding(20),
+                Margin = new Padding(0),
                 Name = "SearchBox",
                 PlaceholderText = "Search for a station ...",
-                Size = new Size(530, 34),
+                //Size = new Size(600, 34),
                 TabIndex = 0,
             };
 

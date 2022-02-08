@@ -25,6 +25,13 @@ namespace SwissTransport
         }
 
         [Fact]
+        public void LocationsByCoords()
+        {
+            Stations stations = this.testee.GetStations(47.05048, 8.30635);
+            stations.StationList.Should().HaveCount(10);
+        }
+
+        [Fact]
         public void StationBoard()
         {
             StationBoardRoot stationBoard = this.testee.GetStationBoard("Sursee", "8502007");
