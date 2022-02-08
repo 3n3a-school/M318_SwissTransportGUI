@@ -18,9 +18,11 @@ namespace SwissTransportGUITest
         [Fact]
         public void IsValidSearchQuery()
         {
-            RegexHelper.IsValidSearchQuery("**ç, Luzern").Should().BeFalse();
+            RegexHelper.IsValidSearchQuery("**, Luzern").Should().BeFalse();
+            RegexHelper.IsValidSearchQuery("$nake$ ar# c&&l").Should().BeFalse();
             RegexHelper.IsValidSearchQuery("Luzern, Bahnhof").Should().BeTrue();
-            RegexHelper.IsValidSearchQuery("Luzern, Bahnhof").Should().BeTrue();
+            RegexHelper.IsValidSearchQuery("Zürich HB").Should().BeTrue();
+            RegexHelper.IsValidSearchQuery("Neuchâtel").Should().BeTrue();
         }
     }
 }

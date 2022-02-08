@@ -55,13 +55,21 @@ namespace SwissTransportGUI.Controller
             if (string.IsNullOrWhiteSpace(searchQuery))
                 return false;
 
-            string _badChars = "@*#\"+¦§°&%/=?`'^$£";
-            foreach (string badChar in _badChars.Split(""))
+            string[] _badChars = new string[] {"@", "*", "#", "\"", "+", "¦", "§", "°", "&", "%", "/", "=", "?", "`", "'", "^", "$", "£" };
+            bool _containsBadChar = false;
+            foreach (string badChar in _badChars)
             {
                 if (searchQuery.Contains(badChar))
-                    return false;
+                    _containsBadChar = true;
             }
-            return true;
+            
+            if (_containsBadChar)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
         }
     }
 }
