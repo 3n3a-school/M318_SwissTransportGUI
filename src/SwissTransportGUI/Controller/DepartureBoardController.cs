@@ -10,7 +10,7 @@ using SwissTransportGUI.Model;
 
 namespace SwissTransportGUI.View.Controller
 {
-    internal class DepartureBoardController
+    public class DepartureBoardController
     {
         public BindingList<DepartureEntry> DepartureBoardEntries { get; set; }
         private ITransport transport { get; set; }
@@ -42,7 +42,7 @@ namespace SwissTransportGUI.View.Controller
                     DepartureTime = entry.Stop.Departure.ToString("HH:mm"),
                     Direction = entry.To,
                     Delays = entry.Stop.Delay,
-                    Platform = entry.Stop.Platform,                    
+                    Platform = entry.Stop.Platform,
                 });
             }
         }

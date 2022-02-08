@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using ABI.Windows.System;
+using MimeKit;
 using SwissTransportGUI.Controller;
 using SwissTransportGUI.Model;
 
@@ -440,7 +441,7 @@ namespace SwissTransportGUI.View
             this.ToBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
             this.DatePicker.ValueChanged += new EventHandler(this.DatePicker_ValueChange);
             this.TimePicker.ValueChanged += new EventHandler(this.TimePicker_ValueChange);
-            this.ShareByEmail.Click += new EventHandler(this.OpenMailtoLink);
+            this.ShareByEmail.Click += new EventHandler(this.EmailConnection);
             this.ConnectionGrid.SelectionChanged += new EventHandler(this.ConnectionGrid_SelectionChange);
         }
 
@@ -450,19 +451,22 @@ namespace SwissTransportGUI.View
             this.ShareByEmail.Enabled = true;
         }
 
-        private void OpenMailtoLink(object? sender, EventArgs e)
+        private void EmailConnection(object? sender, EventArgs e)
         {
-            // TODO: accept input for name and email
             Form emailDialog = new EmailDialog("Please enter the name and email address of the recipient.", "Name",
                 "Email Address");
+
             if (emailDialog.ShowDialog() == DialogResult.OK)
             {
-                EmailDialogResult dialogResult = (EmailDialogResult) emailDialog.Tag;
-                if (EmailSendingController.SendEmail(dialogResult.Name, dialogResult.Email, SelectedConnection.FromStation,
-                        SelectedConnection.FromStationDepartureTime.ToString(), SelectedConnection.ToStation,
-                        SelectedConnection.ToStationArrivalTime.ToString()))
+                MailboxAddress receiverAddress = (MailboxAddress) emailDialog.Tag;
+                
+                EmailSendingController.ConstructEmail(receiverAddress, SelectedConnection.FromStation,
+                    SelectedConnection.FromStationDepartureTime.ToString(), SelectedConnection.ToStation,
+                    SelectedConnection.ToStationArrivalTime.ToString());
+
+                if (EmailSendingController.SendMail())
                 {
-                    MessageBox.Show($"Successfully sent Email to {dialogResult.Email}");
+                    MessageBox.Show($"Successfully sent Email to {receiverAddress.Address}");
                 }
                 else
                 {

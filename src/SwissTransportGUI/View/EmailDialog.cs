@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MimeKit;
 using SwissTransportGUI.Controller;
 using SwissTransportGUI.Model;
 
@@ -69,11 +70,7 @@ namespace SwissTransportGUI.View
 
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            Tag = new EmailDialogResult()
-            {
-                Name = InputField1.Text,
-                Email = InputField2.Text,
-            };
+            Tag = new MailboxAddress(InputField1.Text, InputField2.Text);
         }
     }
 }

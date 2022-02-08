@@ -45,6 +45,8 @@
 
             List<SearchCHStation> stationList = this.GetObject<List<SearchCHStation>>(uri);
             List<Station> resultStations = new List<Station>();
+
+            // Convert to list of Stations
             foreach (SearchCHStation sta in stationList)
             {
                 Station station = new Station()

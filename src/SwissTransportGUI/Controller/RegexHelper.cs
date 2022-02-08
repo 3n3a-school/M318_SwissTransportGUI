@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace SwissTransportGUI.Controller
 {
-    internal class RegexHelper
+    public class RegexHelper
     {
         public static bool IsValidEmail(string email)
         {

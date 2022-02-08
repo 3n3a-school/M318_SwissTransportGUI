@@ -1,53 +1,65 @@
 ﻿using System;
 using System.IO;
+using System.Net.Mail;
 using MailKit;
 using MailKit.Net.Smtp;
 using MimeKit;
 using RestSharp;
 using RestSharp.Authenticators;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace SwissTransportGUI.Controller
 {
-    internal class EmailSendingController
+    public class EmailSendingController
     {
-        private const string SenderName = "SwissTransportGUI";
-        private const string FromEmail = "swisstransportgui@mail.3n3a.ch";
+        private readonly MailboxAddress SenderAddress = new MailboxAddress("SwissTransportGUI", "swisstransportgui@mail.3n3a.ch");
         private const string SmtpServer = "smtp.eu.mailgun.org";
         private const string SmtpPass = "e0cf0378b2b6af2a459fdb6d0c5512b4-d2cc48bc-e5ffed37";
 
-        public EmailSendingController()
-        {
+        private MimeMessage EmailMessage { get; set; }
 
+        private ISmtpClient SmtpClient { get; set; }
+
+        public EmailSendingController(ISmtpClient smtpClient = null)
+        {
+            if (smtpClient == null)
+            {
+                SmtpClient = new SmtpClient();
+            }
+            else
+            {
+                SmtpClient = smtpClient;
+            }
         }
-        public bool SendEmail(string receiverName, string receiverEmail, string departureLocation, string departureTime, string arrivalLocation,
+
+        public void ConstructEmail(MailboxAddress receiverAddress, string departureLocation, string departureTime, string arrivalLocation,
             string arrivalTime)
         {
-            string _emailTemplate =
+            string emailBody =
                 $"<div><h1>Connection from {departureLocation} to {arrivalLocation}</h1><p>Departure from {departureLocation} at {departureTime} --> Arrival in {arrivalLocation} at {arrivalTime}</p></div>";
-            string _emailSubject = "Your Connection from SwissTransportGUI";
+            string emailSubject = "Your Connection from SwissTransportGUI";
 
+            EmailMessage = new MimeMessage();
+            EmailMessage.From.Add(SenderAddress);
+            EmailMessage.To.Add(receiverAddress);
+            EmailMessage.Subject = emailSubject;
+            EmailMessage.Body = new TextPart("html")
+            {
+                Text = emailBody,
+            };
+        }
+
+        public bool SendMail()
+        {
             try
             {
-                MimeMessage mail = new MimeMessage();
-                mail.From.Add(new MailboxAddress(SenderName, FromEmail));
-                mail.To.Add(new MailboxAddress(receiverName, receiverEmail));
-                mail.Subject = _emailSubject;
-                mail.Body = new TextPart("html")
-                {
-                    Text = _emailTemplate,
-                };
+                SmtpClient.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                using (var client = new SmtpClient())
-                {
-                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                SmtpClient.Connect(SmtpServer, 587, false);
+                SmtpClient.Authenticate(SenderAddress.Address, SmtpPass);
 
-                    client.Connect(SmtpServer, 587, false);
-                    //client.AuthenticationMechanisms.Remove("XOAUTH2");
-                    client.Authenticate(FromEmail, SmtpPass);
-
-                    client.Send(mail);
-                    client.Disconnect(true);
-                }
+                SmtpClient.Send(EmailMessage);
+                SmtpClient.Disconnect(true);
 
                 return true;
             }

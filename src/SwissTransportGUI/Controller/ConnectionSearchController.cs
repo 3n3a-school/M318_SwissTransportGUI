@@ -11,7 +11,7 @@ using SwissTransportGUI.Model;
 
 namespace SwissTransportGUI.Controller
 {
-    internal class ConnectionSearchController
+    public class ConnectionSearchController
     {
         private ITransport Transport { get; set; }
         private static readonly int _connectionDisplayLimit = 4;
