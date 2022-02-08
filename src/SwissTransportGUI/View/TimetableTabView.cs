@@ -24,7 +24,6 @@ namespace SwissTransportGUI.View
         private DataGridViewTextBoxColumn Delay { get; set; } = new();
         private DataGridViewTextBoxColumn FromCoord { get; set; }
         private DataGridViewTextBoxColumn ToCoord { get; set; }
-        private StationSearchComponent ViaBox { get; set; } = new(0,0);
         private Label FromLabel { get; set; } = new();
         private Label DateLabel { get; set; } = new();
         private Label TimeLabel { get; set; } = new();
