@@ -22,6 +22,9 @@ namespace SwissTransportGUI.View
         private DataGridViewTextBoxColumn ToStationArrivalTime { get; set; } = new();
         private DataGridViewTextBoxColumn Duration { get; set; } = new();
         private DataGridViewTextBoxColumn Delay { get; set; } = new();
+        private DataGridViewTextBoxColumn FromCoord { get; set; }
+        private DataGridViewTextBoxColumn ToCoord { get; set; }
+        private StationSearchComponent ViaBox { get; set; } = new(0,0);
         private Label FromLabel { get; set; } = new();
         private Label DateLabel { get; set; } = new();
         private Label TimeLabel { get; set; } = new();
@@ -332,6 +335,7 @@ namespace SwissTransportGUI.View
                 HeaderText = "From",
                 Name = "FromStation",
                 ReadOnly = true,
+                DisplayIndex = 0,
             };
 
             // 
@@ -343,6 +347,7 @@ namespace SwissTransportGUI.View
                 HeaderText = "Departure",
                 Name = "FromStationDepartureTime",
                 ReadOnly = true,
+                DisplayIndex = 1,
             };
 
             // 
@@ -354,6 +359,7 @@ namespace SwissTransportGUI.View
                 HeaderText = "To",
                 Name = "ToStation",
                 ReadOnly = true,
+                DisplayIndex = 2,
             };
 
             // 
@@ -365,6 +371,7 @@ namespace SwissTransportGUI.View
                 HeaderText = "Arrival",
                 Name = "ToStationArrivalTime",
                 ReadOnly = true,
+                DisplayIndex = 3,
             };
 
             // 
@@ -376,6 +383,7 @@ namespace SwissTransportGUI.View
                 HeaderText = "Duration",
                 Name = "Duration",
                 ReadOnly = true,
+                DisplayIndex = 4,
             };
 
             // 
@@ -387,6 +395,29 @@ namespace SwissTransportGUI.View
                 HeaderText = "Delay",
                 Name = "Delay",
                 ReadOnly = true,
+                DisplayIndex = 5,
+            };
+
+            //
+            // Hidden Columns
+            //
+            this.ToCoord = new DataGridViewTextBoxColumn()
+            {
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                DataPropertyName = "ToStationCoord",
+                HeaderText = "ToCoord",
+                Name = "ToCoord",
+                ReadOnly = true,
+                Visible = false,
+            };
+            this.FromCoord = new DataGridViewTextBoxColumn()
+            {
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                DataPropertyName = "FromStationCoord",
+                HeaderText = "FromCoord",
+                Name = "FromCoord",
+                ReadOnly = true,
+                Visible = false,
             };
 
             // Adding Elements to Containers
@@ -424,11 +455,13 @@ namespace SwissTransportGUI.View
 
             this.ConnectionGrid.Columns.AddRange(new DataGridViewColumn[] {
                 this.FromStation,
-                this.FromStationDepartureTime,
                 this.ToStation,
+                this.FromStationDepartureTime,
                 this.ToStationArrivalTime,
                 this.Duration,
-                this.Delay
+                this.Delay,
+                this.FromCoord,
+                this.ToCoord,
             });
 
             // Last so they're on top
@@ -533,6 +566,17 @@ namespace SwissTransportGUI.View
         private void TimetableTab_Paint(object sender, PaintEventArgs e)
         {
             this.FromBox.SearchBox.Focus();
+            AdjustColumnOrder();
+        }
+
+        private void AdjustColumnOrder()
+        {
+            ConnectionGrid.Columns["FromStation"].DisplayIndex = 0;
+            ConnectionGrid.Columns["FromStationDepartureTime"].DisplayIndex = 1;
+            ConnectionGrid.Columns["ToStation"].DisplayIndex = 2;
+            ConnectionGrid.Columns["ToStationArrivalTime"].DisplayIndex = 3;
+            ConnectionGrid.Columns["Duration"].DisplayIndex = 4;
+            ConnectionGrid.Columns["Delay"].DisplayIndex=5;
         }
     }
 }
