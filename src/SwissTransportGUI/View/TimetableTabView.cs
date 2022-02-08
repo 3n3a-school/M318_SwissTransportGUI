@@ -2,6 +2,7 @@
 using System.Net;
 using ABI.Windows.System;
 using SwissTransportGUI.Controller;
+using SwissTransportGUI.Model;
 
 namespace SwissTransportGUI.View
 {
@@ -33,11 +34,14 @@ namespace SwissTransportGUI.View
         private Button ShareByEmail { get; set; } = new ();
 
         private ConnectionSearchController ConnectionController { get; set; }
+        private EmailSendingController EmailSendingController { get; set; }
         private bool DatePickerClicked { get; set; } = false;
         private bool TimePickerClicked { get; set; } = false;
+        private ConnectionEntry SelectedConnection { get; set; } = new();
 
         public TimetableTabView() {
             ConnectionController = new ConnectionSearchController();
+            EmailSendingController = new EmailSendingController();
 
             InitControls();
 
@@ -442,17 +446,25 @@ namespace SwissTransportGUI.View
 
         private void ConnectionGrid_SelectionChange(object? sender, EventArgs e)
         {
+            SelectedConnection = ConnectionController.Connections[ConnectionGrid.SelectedRows[0].Index];
             this.ShareByEmail.Enabled = true;
         }
 
         private void OpenMailtoLink(object? sender, EventArgs e)
         {
-            string receiverEmail = "tets@test.com";
-            string testSubject = "Connection from x to y";
-            string testBody = "Connection from x to y at time";
-            string url =
-                $"mailto:{receiverEmail}?subject={WebUtility.UrlEncode(testSubject)}&body={WebUtility.UrlEncode(testBody)}";
-            Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+            // TODO: accept input for name and email
+            Form emailDialog = new EmailDialog("Please enter the name and email address of the recipient.", "Name",
+                "Email Address");
+            if (emailDialog.ShowDialog() == DialogResult.OK)
+            {
+                EmailDialogResult dialogResult = (EmailDialogResult) emailDialog.Tag;
+                if (EmailSendingController.SendEmail(dialogResult.Name, dialogResult.Email, SelectedConnection.FromStation,
+                        SelectedConnection.FromStationDepartureTime.ToString(), SelectedConnection.ToStation,
+                        SelectedConnection.ToStationArrivalTime.ToString()))
+                {
+                    MessageBox.Show($"Successfully sent Email to {dialogResult.Email}");
+                }
+            }
         }
 
         private void TimePicker_ValueChange(object? sender, EventArgs e)
