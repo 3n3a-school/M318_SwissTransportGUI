@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using ABI.Windows.System;
+using GMap.NET;
+using GMap.NET.WindowsForms;
 using MailKit.Net.Smtp;
 using MimeKit;
 using SwissTransportGUI.Controller;
@@ -443,13 +445,20 @@ namespace SwissTransportGUI.View
             this.DatePicker.ValueChanged += new EventHandler(this.DatePicker_ValueChange);
             this.TimePicker.ValueChanged += new EventHandler(this.TimePicker_ValueChange);
             this.ShareByEmail.Click += new EventHandler(this.EmailConnection);
+            this.ViewMapButton.Click += new EventHandler(this.ViewMapButton_Click);
             this.ConnectionGrid.SelectionChanged += new EventHandler(this.ConnectionGrid_SelectionChange);
+        }
+
+        private void ViewMapButton_Click(object? sender, EventArgs e)
+        {
+            
         }
 
         private void ConnectionGrid_SelectionChange(object? sender, EventArgs e)
         {
             SelectedConnection = ConnectionController.Connections[ConnectionGrid.SelectedRows[0].Index];
             this.ShareByEmail.Enabled = true;
+            this.ViewMapButton.Enabled = true;
         }
 
         private void EmailConnection(object? sender, EventArgs e)
@@ -496,6 +505,8 @@ namespace SwissTransportGUI.View
             } else
             {
                 this.SearchButton.Enabled = false;
+                this.ShareByEmail.Enabled = false;
+                this.ViewMapButton.Enabled = false;
             }
         }
 

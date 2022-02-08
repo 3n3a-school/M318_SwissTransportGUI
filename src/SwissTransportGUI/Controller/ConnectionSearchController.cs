@@ -34,9 +34,10 @@ namespace SwissTransportGUI.Controller
             Connections connections = Transport.GetConnections(fromStation, toStation, _connectionDisplayLimit, departureDate, departureTime);
             foreach (Connection connection in connections.ConnectionList)
             {
-                
                 Connections.Add(new ConnectionEntry()
                 {
+                    FromStationCoord = connection.From.Station.Coordinate,
+                    ToStationCoord = connection.To.Station.Coordinate,
                     FromStation = connection.From.Station.Name,
                     ToStation = connection.To.Station.Name,
                     FromStationDepartureTime = connection.From.Departure,
