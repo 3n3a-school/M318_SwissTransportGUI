@@ -37,6 +37,8 @@ namespace SwissTransportGUI.View
         private Button ViewMapButton { get; set; } = new();
         private Button ShareByEmail { get; set; } = new ();
 
+        private MapDialog MapDialog { get; set; }
+
         private ConnectionSearchController ConnectionController { get; set; }
         private EmailSendingController EmailSendingController { get; set; }
         private bool DatePickerClicked { get; set; } = false;
@@ -46,6 +48,7 @@ namespace SwissTransportGUI.View
         public TimetableTabView() {
             ConnectionController = new ConnectionSearchController();
             EmailSendingController = new EmailSendingController(new SmtpClient());
+            MapDialog = new MapDialog();
 
             InitControls();
 
@@ -451,7 +454,8 @@ namespace SwissTransportGUI.View
 
         private void ViewMapButton_Click(object? sender, EventArgs e)
         {
-            
+            MapDialog.AddRoute(SelectedConnection);
+            MapDialog.Show();
         }
 
         private void ConnectionGrid_SelectionChange(object? sender, EventArgs e)
