@@ -1,9 +1,4 @@
-﻿using System.Diagnostics;
-using System.Net;
-using ABI.Windows.System;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MimeKit;
 using SwissTransportGUI.Controller;
 using SwissTransportGUI.Model;
@@ -16,9 +11,10 @@ namespace SwissTransportGUI.View
         private SplitContainer SplitContainer1 { get; set; } = new();
         private TableLayoutPanel TableLayoutPanel1 { get; set; } = new();
         private Label ToLabel { get; set; } = new();
-        private StationSearchComponent ToBox { get; set; } = new(0,0);
         private Label ViaLabel { get; set; } = new();
+        private StationSearchComponent ToBox { get; set; } = new(0,0);
         private StationSearchComponent FromBox { get; set; } = new(0,0);
+        private StationSearchComponent ViaBox { get; set; } = new(0,0);
         private DataGridView ConnectionGrid { get; set; } = new();
         private DataGridViewTextBoxColumn FromStation { get; set; } = new();
         private DataGridViewTextBoxColumn FromStationDepartureTime { get; set; } = new();
@@ -26,7 +22,6 @@ namespace SwissTransportGUI.View
         private DataGridViewTextBoxColumn ToStationArrivalTime { get; set; } = new();
         private DataGridViewTextBoxColumn Duration { get; set; } = new();
         private DataGridViewTextBoxColumn Delay { get; set; } = new();
-        private StationSearchComponent ViaBox { get; set; } = new(0,0);
         private Label FromLabel { get; set; } = new();
         private Label DateLabel { get; set; } = new();
         private Label TimeLabel { get; set; } = new();
@@ -41,8 +36,9 @@ namespace SwissTransportGUI.View
 
         private ConnectionSearchController ConnectionController { get; set; }
         private EmailSendingController EmailSendingController { get; set; }
-        private bool DatePickerClicked { get; set; } = false;
-        private bool TimePickerClicked { get; set; } = false;
+        private bool DatePickerFilledOut { get; set; } = false;
+        private bool TimePickerFilledOut { get; set; } = false;
+        private bool ViaBoxFilledOut { get; set; } = false;
         private ConnectionEntry SelectedConnection { get; set; } = new();
 
         public TimetableTabView() {
@@ -491,19 +487,20 @@ namespace SwissTransportGUI.View
 
         private void TimePicker_ValueChange(object? sender, EventArgs e)
         {
-            TimePickerClicked = true;
+            TimePickerFilledOut = true;
         }
 
         private void DatePicker_ValueChange(object? sender, EventArgs e)
         {
-            DatePickerClicked = true;
+            DatePickerFilledOut = true;
         }
 
         private void CheckFields_Completion(object? sender, EventArgs e)
         {
             // Enable Search Button, if from and to filled out
             if (string.IsNullOrWhiteSpace(this.FromBox.SearchBox.Text) == false
-                && string.IsNullOrWhiteSpace(this.ToBox.SearchBox.Text) == false)
+                && string.IsNullOrWhiteSpace(this.ToBox.SearchBox.Text) == false
+                && ( ViaBoxFilledOut == true || string.IsNullOrEmpty(this.ViaBox.SearchBox.Text) == true))
             {
                 this.SearchButton.Enabled = true;
             } else
@@ -518,13 +515,13 @@ namespace SwissTransportGUI.View
         {
             try
             {
-                if (this.TimePickerClicked && this.DatePickerClicked)
+                if (this.TimePickerFilledOut && this.DatePickerFilledOut)
                 {
-                    ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, DatePicker.Value, TimePicker.Value);
+                    ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, DatePicker.Value, TimePicker.Value, ViaBoxFilledOut ? ViaBox.SelectedStation.Name : null);
                 }
                 else
                 {
-                    ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name);
+                    ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, ViaBoxFilledOut ? ViaBox.SelectedStation.Name : null);
                 }
             }
             catch (Exception ex)

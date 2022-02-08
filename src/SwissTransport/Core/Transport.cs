@@ -88,7 +88,7 @@
             return this.GetObject<StationBoardRoot>(uri);
         }
 
-        public Connections GetConnections(string fromStation, string toStation, int connectionLimit, DateTime departureDate, DateTime departureTime)
+        public Connections GetConnections(string fromStation, string toStation, int connectionLimit, DateTime departureDate, DateTime departureTime, string viaStation = null)
         {
             if (string.IsNullOrEmpty(fromStation))
             {
@@ -105,8 +105,13 @@
                 throw new ArgumentOutOfRangeException(nameof(connectionLimit));
             }
 
+            if (viaStation != null && viaStation.Length < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(viaStation));
+            }
+
             // TODO: check departure time
-            var uri = new Uri($"{WebApiHost}connections?from={fromStation}&to={toStation}&limit={connectionLimit}&date={departureDate.ToString("yyyy-MM-dd")}&time={departureTime.ToString("HH:mm")}");
+            var uri = new Uri($"{WebApiHost}connections?from={fromStation}&to={toStation}&via={viaStation ?? string.Empty}&limit={connectionLimit}&date={departureDate.ToString("yyyy-MM-dd")}&time={departureTime.ToString("HH:mm")}");
             return this.GetObject<Connections>(uri);
         }
 
