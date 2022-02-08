@@ -551,8 +551,8 @@ namespace SwissTransportGUI.View
         private void CheckFields_Completion(object? sender, EventArgs e)
         {
             // Enable Search Button, if from and to filled out
-            if (RegexHelper.IsValidSearchQuery(this.FromBox.SearchBox.Text) == false
-                && RegexHelper.IsValidSearchQuery(this.ToBox.SearchBox.Text) == false
+            if (RegexHelper.IsValidSearchQuery(this.FromBox.SearchBox.Text) == true
+                && RegexHelper.IsValidSearchQuery(this.ToBox.SearchBox.Text) == true
                 && ( ViaBoxFilledOut == true || RegexHelper.IsValidSearchQuery(this.ViaBox.SearchBox.Text) == false))
             {
                 this.SearchButton.Enabled = true;

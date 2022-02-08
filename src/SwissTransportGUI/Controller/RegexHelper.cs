@@ -55,16 +55,13 @@ namespace SwissTransportGUI.Controller
             if (string.IsNullOrWhiteSpace(searchQuery))
                 return false;
 
-            try
+            string _badChars = "@*#\"+¦§°&%/=?`'^$£";
+            foreach (string badChar in _badChars.Split(""))
             {
-                return Regex.IsMatch(searchQuery,
-                    @"^[A-Za-z0-9äöüÄÖÜ\-éÉèÈ'àÀçâÂîÎ]+$",
-                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+                if (searchQuery.Contains(badChar))
+                    return false;
             }
-            catch (RegexMatchTimeoutException)
-            {
-                return false;
-            }
+            return true;
         }
     }
 }
