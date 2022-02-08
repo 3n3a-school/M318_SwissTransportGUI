@@ -14,20 +14,13 @@ namespace SwissTransportGUI.Controller
         private const string SmtpServer = "smtp.eu.mailgun.org";
         private const string SmtpPass = "e0cf0378b2b6af2a459fdb6d0c5512b4-d2cc48bc-e5ffed37";
 
-        private MimeMessage EmailMessage { get; set; }
+        public MimeMessage EmailMessage { get; set; }
 
         private ISmtpClient SmtpClient { get; set; }
 
-        public EmailSendingController(ISmtpClient smtpClient = null)
+        public EmailSendingController(ISmtpClient smtpClient)
         {
-            if (smtpClient == null)
-            {
-                SmtpClient = new SmtpClient();
-            }
-            else
-            {
-                SmtpClient = smtpClient;
-            }
+            SmtpClient = smtpClient;
         }
 
         public void ConstructEmail(MailboxAddress receiverAddress, string departureLocation, string departureTime, string arrivalLocation,

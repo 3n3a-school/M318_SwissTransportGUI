@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using ABI.Windows.System;
+using MailKit.Net.Smtp;
 using MimeKit;
 using SwissTransportGUI.Controller;
 using SwissTransportGUI.Model;
@@ -42,7 +43,7 @@ namespace SwissTransportGUI.View
 
         public TimetableTabView() {
             ConnectionController = new ConnectionSearchController();
-            EmailSendingController = new EmailSendingController();
+            EmailSendingController = new EmailSendingController(new SmtpClient());
 
             InitControls();
 
