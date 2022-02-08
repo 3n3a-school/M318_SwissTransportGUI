@@ -4,8 +4,6 @@ using System.Net.Mail;
 using MailKit;
 using MailKit.Net.Smtp;
 using MimeKit;
-using RestSharp;
-using RestSharp.Authenticators;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace SwissTransportGUI.Controller
