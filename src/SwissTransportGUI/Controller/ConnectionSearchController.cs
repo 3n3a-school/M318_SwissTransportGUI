@@ -40,7 +40,7 @@ namespace SwissTransportGUI.Controller
                     FromStationCoord = new PointLatLng((double)connection.From.Station.Coordinate.XCoordinate, (double)connection.From.Station.Coordinate.YCoordinate),
                     ToStationCoord = new PointLatLng((double)connection.To.Station.Coordinate.XCoordinate, (double)connection.To.Station.Coordinate.YCoordinate),
                     FromStation = connection.From.Station.Name,
-                    ToStation = connection.To.Station.Name,
+                    ToStation = $"{connection.To.Station.Name}{(viaStation != null ? $", via {viaStation}" : string.Empty)}",
                     FromStationDepartureTime = connection.From.Departure,
                     ToStationArrivalTime = connection.To.Arrival,
                     Duration = connection.Duration,

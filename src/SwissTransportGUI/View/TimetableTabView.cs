@@ -473,11 +473,24 @@ namespace SwissTransportGUI.View
             this.SearchButton.Click += new EventHandler(this.SearchButton_Click);
             this.FromBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
             this.ToBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
+            this.ViaBox.SearchBox.TextChanged += new EventHandler(this.ViaBox_TextChanged);
+            this.ViaBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
             this.DatePicker.ValueChanged += new EventHandler(this.DatePicker_ValueChange);
             this.TimePicker.ValueChanged += new EventHandler(this.TimePicker_ValueChange);
             this.ShareByEmail.Click += new EventHandler(this.EmailConnection);
             this.ViewMapButton.Click += new EventHandler(this.ViewMapButton_Click);
             this.ConnectionGrid.SelectionChanged += new EventHandler(this.ConnectionGrid_SelectionChange);
+        }
+
+        private void ViaBox_TextChanged(object? sender, EventArgs e)
+        {
+            if (ViaBox.SearchBox.Text.Length > 1)
+            {
+                ViaBoxFilledOut = true;
+            } else
+            {
+                ViaBoxFilledOut = false;
+            }
         }
 
         private void ViewMapButton_Click(object? sender, EventArgs e)
@@ -488,9 +501,17 @@ namespace SwissTransportGUI.View
 
         private void ConnectionGrid_SelectionChange(object? sender, EventArgs e)
         {
-            SelectedConnection = ConnectionController.Connections[ConnectionGrid.SelectedRows[0].Index];
-            this.ShareByEmail.Enabled = true;
-            this.ViewMapButton.Enabled = true;
+            if (ConnectionGrid.Rows.Count > 0)
+            {
+                SelectedConnection = ConnectionController.Connections[ConnectionGrid.SelectedRows[0].Index];
+                this.ShareByEmail.Enabled = true;
+                this.ViewMapButton.Enabled = true;
+            } else
+            {
+                SelectedConnection = null;
+                this.ShareByEmail.Enabled = false;
+                this.ViewMapButton.Enabled = false;
+            }
         }
 
         private void EmailConnection(object? sender, EventArgs e)
@@ -538,28 +559,26 @@ namespace SwissTransportGUI.View
             } else
             {
                 this.SearchButton.Enabled = false;
-                this.ShareByEmail.Enabled = false;
-                this.ViewMapButton.Enabled = false;
             }
         }
 
         private void SearchButton_Click(object? sender, EventArgs e)
         {
-            try
-            {
-                if (this.TimePickerFilledOut && this.DatePickerFilledOut)
+            //ry
+            //
+                if (this.TimePickerFilledOut && this.DatePickerFilledOut && !string.IsNullOrEmpty(this.FromBox.SelectedStation.Name) && !string.IsNullOrEmpty(this.ToBox.SelectedStation.Name))
                 {
                     ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, DatePicker.Value, TimePicker.Value, ViaBoxFilledOut ? ViaBox.SelectedStation.Name : null);
                 }
-                else
+                else if (!string.IsNullOrEmpty(this.FromBox.SelectedStation.Name) && !string.IsNullOrEmpty(this.ToBox.SelectedStation.Name))
                 {
                     ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, ViaBoxFilledOut ? ViaBox.SelectedStation.Name : null);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to get connection. Error occurred: {ex.Message}");
-            } 
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Failed to get connection. Error occurred: {ex.Message}");
+            //} 
         }
 
         private void TimetableTab_Paint(object sender, PaintEventArgs e)
