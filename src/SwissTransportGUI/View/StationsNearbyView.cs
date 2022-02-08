@@ -144,18 +144,7 @@ namespace SwissTransportGUI.View
 
                     Stations nearbyStations = transport.GetStations((double)this.SearchComponent.SelectedStation.Coordinate.XCoordinate,
                         (double)this.SearchComponent.SelectedStation.Coordinate.YCoordinate);
-                    foreach (Station station in nearbyStations.StationList)
-                    {
-                        if (station.Coordinate.XCoordinate != null && station.Coordinate.YCoordinate != null)
-                        {
-                            MapControl.Zoom = 16;
-                            PointLatLng newMarker = new PointLatLng((double)station.Coordinate.XCoordinate, (double)station.Coordinate.YCoordinate);
-                            MapMarkers.Markers.Add(new GMarkerGoogle(newMarker, GMarkerGoogleType.red));
-                            Console.WriteLine($"Marker {station.Name} X {newMarker.Lat} Y {newMarker.Lng}");
-                        }
-                    }
-                    
-                    MapMarkers.Markers.Add(new GMarkerGoogle(newLocation, GMarkerGoogleType.blue_dot));
+                    this.AddMapMarkers(nearbyStations, newLocation);
                 }
                 this.SearchComponent.AutoSuggestList.Hide();
             }
@@ -163,6 +152,22 @@ namespace SwissTransportGUI.View
             {
                 MessageBox.Show($"Failed to find station. Error occurred: {ex.Message}");
             }
+        }
+
+        private void AddMapMarkers(Stations nearbyStations, PointLatLng currentLocation)
+        {
+            foreach (Station station in nearbyStations.StationList)
+            {
+                if (station.Coordinate.XCoordinate != null && station.Coordinate.YCoordinate != null)
+                {
+                    MapControl.Zoom = 16;
+                    PointLatLng newMarker = new PointLatLng((double)station.Coordinate.XCoordinate, (double)station.Coordinate.YCoordinate);
+                    MapMarkers.Markers.Add(new GMarkerGoogle(newMarker, GMarkerGoogleType.red));
+                    Console.WriteLine($"Marker {station.Name} X {newMarker.Lat} Y {newMarker.Lng}");
+                }
+            }
+
+            MapMarkers.Markers.Add(new GMarkerGoogle(currentLocation, GMarkerGoogleType.blue_dot));
         }
 
         private void CheckInput(object? sender, EventArgs e)
