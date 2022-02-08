@@ -464,6 +464,10 @@ namespace SwissTransportGUI.View
                 {
                     MessageBox.Show($"Successfully sent Email to {dialogResult.Email}");
                 }
+                else
+                {
+                    MessageBox.Show("An error has occurred while trying to send email.");
+                }
             }
         }
 

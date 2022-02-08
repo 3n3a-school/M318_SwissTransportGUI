@@ -17,8 +17,6 @@ namespace SwissTransportGUI.View
         private bool Input1Filled { get; set; } = false;
         private bool Input2Filled { get; set; } = false;
 
-        public string Input1Result { get; private set; } = "";
-        public string Input2Result { get; private set; } = "";
         public EmailDialog(string question, string field1Label, string field2Label)
         {
             InitializeComponent();

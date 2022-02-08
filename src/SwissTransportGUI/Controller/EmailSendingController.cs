@@ -10,39 +10,40 @@ namespace SwissTransportGUI.Controller
 {
     internal class EmailSendingController
     {
+        private const string SenderName = "SwissTransportGUI";
+        private const string FromEmail = "swisstransportgui@mail.3n3a.ch";
+        private const string SmtpServer = "smtp.eu.mailgun.org";
+        private const string SmtpPass = "e0cf0378b2b6af2a459fdb6d0c5512b4-d2cc48bc-e5ffed37";
+
         public EmailSendingController()
         {
 
         }
         public bool SendEmail(string receiverName, string receiverEmail, string departureLocation, string departureTime, string arrivalLocation,
-            string arrivalTime) {
-
-            string _fromEmail = "swisstransportgui@mail.3n3a.ch";
-
+            string arrivalTime)
+        {
             string _emailTemplate =
                 $"<div><h1>Connection from {departureLocation} to {arrivalLocation}</h1><p>Departure from {departureLocation} at {departureTime} --> Arrival in {arrivalLocation} at {arrivalTime}</p></div>";
+            string _emailSubject = "Your Connection from SwissTransportGUI";
 
             try
             {
-                // Compose a message
                 MimeMessage mail = new MimeMessage();
-                mail.From.Add(new MailboxAddress("SwissTransportGUI", _fromEmail));
+                mail.From.Add(new MailboxAddress(SenderName, FromEmail));
                 mail.To.Add(new MailboxAddress(receiverName, receiverEmail));
-                mail.Subject = "Hello";
+                mail.Subject = _emailSubject;
                 mail.Body = new TextPart("html")
                 {
                     Text = _emailTemplate,
                 };
 
-                // Send it!
                 using (var client = new SmtpClient())
                 {
-                    // XXX - Should this be a little different?
                     client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                    client.Connect("smtp.eu.mailgun.org", 587, false);
+                    client.Connect(SmtpServer, 587, false);
                     //client.AuthenticationMechanisms.Remove("XOAUTH2");
-                    client.Authenticate(_fromEmail, "e0cf0378b2b6af2a459fdb6d0c5512b4-d2cc48bc-e5ffed37");
+                    client.Authenticate(FromEmail, SmtpPass);
 
                     client.Send(mail);
                     client.Disconnect(true);
@@ -52,8 +53,8 @@ namespace SwissTransportGUI.Controller
             }
             catch (Exception e)
             {
-                MessageBox.Show($"An Error has occurred while sending email, {e.Message}");
-                throw;
+                Console.WriteLine($"An Error has occurred while sending email, {e.Message}");
+                return false;
             }
         }
     }
