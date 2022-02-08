@@ -204,7 +204,7 @@ namespace SwissTransportGUI.View
 
         private void CheckInput(object? sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.SearchComponent.SearchBox.Text) == false)
+            if (RegexHelper.IsValidSearchQuery(this.SearchComponent.SearchBox.Text) == true)
             {
                 this.SearchButton.Enabled = true;
             } else
@@ -223,11 +223,11 @@ namespace SwissTransportGUI.View
             try
             {
                 string stationNameQuery = this.SearchComponent.SearchBox.Text;
-                if (string.IsNullOrEmpty(this.SearchComponent.SelectedStation.Name) == false)
+                if (RegexHelper.IsValidSearchQuery(this.SearchComponent.SelectedStation.Name) == true)
                 {
                     StationTableController.GetStationBoard(this.SearchComponent.SelectedStation.Name, this.SearchComponent.SelectedStation.Id);
                 }
-                else if (string.IsNullOrWhiteSpace(stationNameQuery) == false)
+                else if (RegexHelper.IsValidSearchQuery(stationNameQuery) == true)
                 {
                     StationTableController.GetStationBoard(stationNameQuery);
                 }

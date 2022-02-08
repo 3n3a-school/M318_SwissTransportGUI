@@ -13,7 +13,6 @@ namespace SwissTransportGUI.View
         public TextBox SearchBox { get; set; } = new();
         public ListBox AutoSuggestList { get; private set; } = new();
 
-        private string LastProcessedSearchInput { get; set; } = "";
         public Station SelectedStation { get; private set; }
 
         public StationSearch StationSearcher { get; private set; }
@@ -73,6 +72,7 @@ namespace SwissTransportGUI.View
 
             this.SearchBox.TextChanged += new EventHandler(this.SearchBox_TextChanged);
             this.SearchBox.GotFocus += new EventHandler(this.ShowAutoSuggestions);
+            this.SearchBox.LostFocus += new EventHandler(this.HideAutoSuggestions);
             this.SearchBox.Click += new EventHandler(this.ShowAutoSuggestions);
             this.SearchBox.Resize += new EventHandler(this.SearchBox_Resize);
             this.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleKey);
@@ -108,8 +108,7 @@ namespace SwissTransportGUI.View
         private void SearchBox_TextChanged(object sender, EventArgs e)
         {
             string stationNameQuery = SearchBox.Text;
-            if ((string.IsNullOrWhiteSpace(stationNameQuery) == false) &&
-                (LastProcessedSearchInput.Length < SearchBox.Text.Length))
+            if (RegexHelper.IsValidSearchQuery(stationNameQuery) == true)
             {
                 StationSearcher.GetNewStationSuggestions(stationNameQuery);
                 SelectedStation = StationSearcher.StationSuggestions[0];
@@ -121,7 +120,6 @@ namespace SwissTransportGUI.View
             {
                 AutoSuggestList.Hide();
             }
-            LastProcessedSearchInput = stationNameQuery;
         }
 
         private void ShowAutoSuggestions(object sender, EventArgs e)
@@ -129,6 +127,9 @@ namespace SwissTransportGUI.View
             AutoSuggestList.Show();
         }
 
-        
+        private void HideAutoSuggestions(object sender, EventArgs e)
+        {
+            AutoSuggestList.Hide();
+        }
     }
 }

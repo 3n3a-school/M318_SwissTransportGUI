@@ -49,5 +49,22 @@ namespace SwissTransportGUI.Controller
                 return false;
             }
         }
+
+        public static bool IsValidSearchQuery(string searchQuery)
+        {
+            if (string.IsNullOrWhiteSpace(searchQuery))
+                return false;
+
+            try
+            {
+                return Regex.IsMatch(searchQuery,
+                    @"^[A-Za-z0-9äöüÄÖÜ\-éÉèÈ'àÀçâÂîÎ]+$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
     }
 }

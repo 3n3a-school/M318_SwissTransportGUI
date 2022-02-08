@@ -11,8 +11,16 @@ namespace SwissTransportGUITest
         [Fact]
         public void IsValidEmail()
         {
-            RegexHelper.IsValidEmail("clearly * and invalid=email").Should().NotBe(true);
-            RegexHelper.IsValidEmail("shouldbe@valid.email").Should().Be(true);
+            RegexHelper.IsValidEmail("clearly * and invalid=email").Should().BeFalse();
+            RegexHelper.IsValidEmail("shouldbe@valid.email").Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsValidSearchQuery()
+        {
+            RegexHelper.IsValidSearchQuery("**ç, Luzern").Should().BeFalse();
+            RegexHelper.IsValidSearchQuery("Luzern, Bahnhof").Should().BeTrue();
+            RegexHelper.IsValidSearchQuery("Luzern, Bahnhof").Should().BeTrue();
         }
     }
 }

@@ -4,6 +4,7 @@ using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
 using SwissTransport.Core;
 using SwissTransport.Models;
+using SwissTransportGUI.Controller;
 
 namespace SwissTransportGUI.View
 {
@@ -179,7 +180,7 @@ namespace SwissTransportGUI.View
 
         private void CheckInput(object? sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.SearchComponent.SearchBox.Text) == false)
+            if (RegexHelper.IsValidSearchQuery(this.SearchComponent.SearchBox.Text) == true)
             {
                 this.SearchButton.Enabled = true;
             }

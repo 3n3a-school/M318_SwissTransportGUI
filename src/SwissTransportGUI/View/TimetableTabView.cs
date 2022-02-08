@@ -551,9 +551,9 @@ namespace SwissTransportGUI.View
         private void CheckFields_Completion(object? sender, EventArgs e)
         {
             // Enable Search Button, if from and to filled out
-            if (string.IsNullOrWhiteSpace(this.FromBox.SearchBox.Text) == false
-                && string.IsNullOrWhiteSpace(this.ToBox.SearchBox.Text) == false
-                && ( ViaBoxFilledOut == true || string.IsNullOrEmpty(this.ViaBox.SearchBox.Text) == true))
+            if (RegexHelper.IsValidSearchQuery(this.FromBox.SearchBox.Text) == false
+                && RegexHelper.IsValidSearchQuery(this.ToBox.SearchBox.Text) == false
+                && ( ViaBoxFilledOut == true || RegexHelper.IsValidSearchQuery(this.ViaBox.SearchBox.Text) == false))
             {
                 this.SearchButton.Enabled = true;
             } else
@@ -564,21 +564,22 @@ namespace SwissTransportGUI.View
 
         private void SearchButton_Click(object? sender, EventArgs e)
         {
-            //ry
-            //
-                if (this.TimePickerFilledOut && this.DatePickerFilledOut && !string.IsNullOrEmpty(this.FromBox.SelectedStation.Name) && !string.IsNullOrEmpty(this.ToBox.SelectedStation.Name))
+            try
+            { 
+                if (this.TimePickerFilledOut && this.DatePickerFilledOut && RegexHelper.IsValidSearchQuery(this.FromBox.SelectedStation.Name) && RegexHelper.IsValidSearchQuery(this.ToBox.SelectedStation.Name))
                 {
                     ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, DatePicker.Value, TimePicker.Value, ViaBoxFilledOut ? ViaBox.SelectedStation.Name : null);
                 }
-                else if (!string.IsNullOrEmpty(this.FromBox.SelectedStation.Name) && !string.IsNullOrEmpty(this.ToBox.SelectedStation.Name))
+                else if (RegexHelper.IsValidSearchQuery(this.FromBox.SelectedStation.Name) && RegexHelper.IsValidSearchQuery(this.ToBox.SelectedStation.Name))
                 {
-                    ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, ViaBoxFilledOut ? ViaBox.SelectedStation.Name : null);
+                    ConnectionController.GetConnections(FromBox.SelectedStation.Name, ToBox.SelectedStation.Name, 
+                        (ViaBoxFilledOut && RegexHelper.IsValidSearchQuery(ViaBox.SelectedStation.Name) ? ViaBox.SelectedStation.Name : null));
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Failed to get connection. Error occurred: {ex.Message}");
-            //} 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to get connection. Error occurred: {ex.Message}");
+            } 
         }
 
         private void TimetableTab_Paint(object sender, PaintEventArgs e)
