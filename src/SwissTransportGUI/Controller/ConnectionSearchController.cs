@@ -25,14 +25,14 @@ namespace SwissTransportGUI.Controller
             Connections = new BindingList<ConnectionEntry>();
         }
 
-        public void GetConnections(string fromStation, string toStation) 
-            => GetConnections(fromStation, toStation, DateTime.Now, DateTime.Now);
+        public void GetConnections(string fromStation, string toStation, string viaStation = null) 
+            => GetConnections(fromStation, toStation, DateTime.Now, DateTime.Now, viaStation);
 
         public void GetConnections(string fromStation, string toStation, DateTime departureDate,
-            DateTime departureTime)
+            DateTime departureTime, string viaStation = null)
         {
             Connections.Clear();
-            Connections connections = Transport.GetConnections(fromStation, toStation, _connectionDisplayLimit, departureDate, departureTime);
+            Connections connections = Transport.GetConnections(fromStation, toStation, _connectionDisplayLimit, departureDate, departureTime, viaStation);
             foreach (Connection connection in connections.ConnectionList)
             {
                 Connections.Add(new ConnectionEntry()
