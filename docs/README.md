@@ -28,7 +28,9 @@ Jedoch besteht hier ein Verbesserungspotenzial.
 
 Es scheint, dass bei Verbindungsabfragen mit dem zusätzlichen Parameter `via`, dass diese Abfrage entsprechend länger dauert, dies liegt aus meiner Sicht beim API-Betreiber.
 
+### Email Provider Account Disabled
 
+Es kann sein, dass mein Email provider GitHub scannt und somit sehen wird, dass ich mal Credentials in der Repo rumliegen hatte und dann meinen Account disabled.
 
 # Planungsdokumente
 
@@ -153,6 +155,76 @@ Anforderungen: **keine** Internetverbindung
 | 1 | Programm wird gestartet | - Dialog der anzeigt, dass keine Internetverbindung vorhanden ist | ||
 
 ## Testprotokoll
+
+**Testplan**
+
+Tester: Enea Krähenbühl
+Datum: 9.2.2022
+Dokumentversion: v1.0.0
+App-Version: v1.0.0
+Installationsanleitung ist im nächsten Kapitel zu finden.
+
+**Abfahrtstafel anzeigen**
+
+Anforderungen: Programm gestartet, aktive Internetverbindung
+
+| Schritt | Aktion | Erwartetes Resultat | Erfüllt | abweichendes Resultat |
+| --- | --- | --- |--- |--- |
+| 1 | "Departure Board" Tab wird angeklickt | - Auf dem Bildschirm wird der "Departure Board" Tab angezeigt | ✅ |-|
+| 2 | Stationsname "Neuchâtel" wird eingegeben. | - Während dem Tippen erscheinen Vorschläge zum eingetippten. | ✅ |-|
+| 3 | Der Such-Knopf wird gedrückt | - Die Abfahrtstafel erscheint in der Tabelle unter der Suchbox. | ✅ |-|
+
+**Verbindung suchen**
+
+Anforderungen: Programm gestartet, aktive Internetverbindung
+
+| Schritt | Aktion | Erwartetes Resultat | Erfüllt | abweichendes Resultat |
+| --- | --- | --- |--- |--- |
+| 1 | "Timetable" Tab wird angeklickt | - Auf dem Bildschirm erscheint der "Timetable" Tab. | ✅ |-|
+| 2 | Im Feld "From" wird "Zür" eingegeben | - Während dem Tippen erscheint eine Liste von Vorschlägen. | ✅ |-|
+| 3 | Aus den Vorschlägen wird "Zürich HB" durch klicken ausgewählt. | - Im "From" Feld steht nun "Zürich HB" | ✅ |-|
+| 4 | Im Feld "To" wird "Sion" eingegeben | - Während dem Tippen erscheint eine Liste von Vorschlägen. | ✅ |-|
+| 5 | "Suchen"-Knopf wird gedrückt | - 4 Verbindungen zwischen Zürich HB und Sion werden in der Tabelle nach dem Suchen angezeigt. | ✅ |-|
+
+**Stationen in der Nähe anzeigen**
+
+Anforderungen: Programm gestartet, aktive Internetverbindung
+
+| Schritt | Aktion | Erwartetes Resultat | Erfüllt | abweichendes Resultat |
+| --- | --- | --- |--- |--- |
+| 1 | "Stations Nearby" Tab wird angeklickt | - Auf dem Screen erscheint ein Suchfeld, ein Such-Knopf und eine dazugehörige Karte | ✅ |-|
+| 2 | Im Suchfeld wird "B" eingegeben | - Es erscheinen Suchvorschläge zum eingegebenen | ✅ |-|
+| 3 | Aus den Vorschlägen wird "Bern" ausgewählt. | - Im Suchfeld erscheint nun Bern<br />- Der Such-Knopf wurde eingeschaltet | ✅ |-|
+| 4 | Suchknopf wird gedrückt | - Auf der Karte erscheint die Station "Bern" als blauer Pin<br />- Alle anliegenden Stationen erschein als rote Pins<br />- Beim "hovern" über einen Pin erscheint der Name der dazugehörigen Station | ✅ |-|
+
+**Verbindung auf Karte anzeigen**
+
+Anforderungen: Test _Verbindung suchen_ davor ausgeführt, aktive Internetverbindung
+
+| Schritt | Aktion | Erwartetes Resultat | Erfüllt | abweichendes Resultat |
+| --- | --- | --- |--- |--- |
+| 1 | In der Tabelle wird die zweit oberste Verbindung ausgewählt durch klicken | - Die Reihe wird blau markiert<br />- Der Button "View on Map" wird angeschaltet<br />- Der Button "Share by Email" wird angeschaltet | ✅ ||
+| 2 | Der Button "View on Map" wird angeklickt | - Es erscheint ein zweites Fenster über dem vorherigen mit der Verbindung visualisiert auf einer Karte | ✅ |(ZoomLevel bei langer Verbindung tweaken)|
+
+**Verbindung per Email versenden**
+
+Anforderungen: Test _Verbindung suchen_ davor ausgeführt, aktive Internetverbindung
+
+| Schritt | Aktion | Erwartetes Resultat | Erfüllt | abweichendes Resultat |
+| --- | --- | --- |--- |--- |
+| 1 | In der Tabelle wird oberste Verbindung ausgewählt durch klicken | - Die Reihe wird blau markiert<br />- Der Button "View on Map" wird angeschaltet<br />- Der Button "Send via Email" wird angeschaltet | ✅ |-|
+| 2 | Der Button "Send Via Email" wird angeklickt | - Es erscheint ein Dialog mit zwei Textfeldern | ✅ |-|
+| 3 | Im Dialog werden "Tester" bei Name und "test@enea.tech" bei Email eingegeben. | - Der Done Button wird aktiviert | ✅ |-|
+| 4 | Der Done Button wird geklickt | - Der Eingabe-Dialog verschwindet<br />- Ein neuer Dialog erscheint mit der Nachricht, dass unsere Email versendet wurde | ✅ |-|
+| 5 | Postfach überprüfen | - Email kam an von "swisstransportgui@3n3a.ch" mit dem Subject "Your Connection" | ✅ |-|
+
+**keine Internetverbindung vorhanden**
+
+Anforderungen: **keine** Internetverbindung
+
+| Schritt | Aktion | Erwartetes Resultat | Erfüllt | abweichendes Resultat |
+| --- | --- | --- |--- |--- |
+| 1 | Programm wird gestartet | - Dialog der anzeigt, dass keine Internetverbindung vorhanden ist | ✅ |-|
 
 # Installation
 

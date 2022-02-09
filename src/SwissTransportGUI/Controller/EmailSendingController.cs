@@ -13,9 +13,9 @@ namespace SwissTransportGUI.Controller
 {
     public class EmailSendingController
     {
-        private string a = "cwB3AGkAcwBzAHQAcgBhAG4AcwBwAG8AcgB0AGcAdQBpAEAAbQBhAGkAbAAuADMAbgAzAGEALgBjAGgA";
-        private string b = "cwBtAHQAcAAuAGUAdQAuAG0AYQBpAGwAZwB1AG4ALgBvAHIAZwA=";
-        private string c = "ZQAwAGMAZgAwADMANwA4AGIAMgBiADYAYQBmADIAYQA0ADUAOQBmAGQAYgA2AGQAMABjADUANQAxADIAYgA0AC0AZAAyAGMAYwA0ADgAYgBjAC0AZQA1AGYAZgBlAGQAMwA3AA==";
+        private string a = "cwB3AGkAcwBzAHQAcgBhAG4AcwBwAG8AcgB0AGcAdQBpAEAAMwBuADMAYQAuAGMAaAA=";
+        private string b = "bQBhAGkAbAAuAHMAbQB0AHAAMgBnAG8ALgBjAG8AbQA=";
+        private string c = "bgBQAHYASABLAEcAUwBFAFkATQBsAFYAaQBpAHcAMwA=";
         private MailboxAddress SenderAddress { get; set; }
         private string SmtpServer { get; set; }
         private string SmtpPass { get; set; }
