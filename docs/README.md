@@ -28,10 +28,6 @@ Jedoch besteht hier ein Verbesserungspotenzial.
 
 Es scheint, dass bei Verbindungsabfragen mit dem zusätzlichen Parameter `via`, dass diese Abfrage entsprechend länger dauert, dies liegt aus meiner Sicht beim API-Betreiber.
 
-### Email Provider Account Disabled
-
-Es kann sein, dass mein Email provider GitHub scannt und somit sehen wird, dass ich mal Credentials in der Repo rumliegen hatte und dann meinen Account disabled.
-
 # Planungsdokumente
 
 ## Mockups
