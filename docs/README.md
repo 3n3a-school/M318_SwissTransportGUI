@@ -1,8 +1,22 @@
 # SwissTransportGUI
 
-## Ablaufdiagramm _Verbindung Suchen_
+## Einleitung
 
-![](.assets/Verbindungen_Suchen_Ablaufdiagramm.drawio.svg)
+Dokumentation zum SwissTransportGUI aus dem ÜK M318. Die Applikation dient dem abrufen von ÖV-Verbindungen sowie dem anzeigen von diesen auf einer Karte und dem senden der Verbindung via Email an eine andere Person.
+
+Diese Dokumentation dient dem Programmierer als Referenz bezüglich User-Stories zu diesem Projekt, Mock-Ups sowie als auch anderen Diagrammen welche zur Planung und Wartung dieses Projektes dienen. Auch abgebildet sind Known-Issues, Testfälle und das Integrations-Testprotokoll.
+
+## Planungsdokumente
+
+### Mockups
+
+![](.assets/Wireframes.png)
+
+### Ablaufdiagramm _Verbindung Suchen_
+
+![](.assets/ablaufdiagramm_stationssuche.png)
+
+Die Station wird im Eingabefeld eingegeben und danach validiert, sobald sie valide ist wird der Such-Knopf aktiviert. Wenn der Benutzer den Such-Knopf klickt, dann wird ein API-Request gesendet und die Station wenn gefunden, angezeigt.
 
 ## User Stories
 
