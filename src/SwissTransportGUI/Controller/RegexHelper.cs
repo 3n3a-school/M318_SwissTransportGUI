@@ -73,7 +73,7 @@ namespace SwissTransportGUI.Controller
             }
         }
 
-        public static bool CheckForInternetConnection()
+        public static bool IsConnectedToInternet()
         {
             try
             {
