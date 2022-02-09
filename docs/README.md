@@ -6,6 +6,8 @@ title: SwissTransportGUI
 
 Enea Krähenbühl, 9.2.2022
 
+[PDF Version](./Documentation.pdf)
+
 # Inhaltsverzeichnis
 
 [TOC]
