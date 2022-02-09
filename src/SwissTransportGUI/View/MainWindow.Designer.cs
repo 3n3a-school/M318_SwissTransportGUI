@@ -35,24 +35,22 @@
             // 
             this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl.Location = new System.Drawing.Point(0, 0);
-            this.TabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(793, 458);
+            this.TabControl.Size = new System.Drawing.Size(906, 611);
             this.TabControl.TabIndex = 0;
-            this.TabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl_Selected);
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.ClientSize = new System.Drawing.Size(793, 458);
-            this.MinimumSize = new System.Drawing.Size(793, 458);
+            this.ClientSize = new System.Drawing.Size(906, 611);
             this.Controls.Add(this.TabControl);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(904, 595);
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Swiss Transport";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResumeLayout(false);
 
         }

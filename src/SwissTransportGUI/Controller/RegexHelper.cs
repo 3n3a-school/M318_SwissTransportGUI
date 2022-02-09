@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace SwissTransportGUI.Controller
@@ -69,6 +70,20 @@ namespace SwissTransportGUI.Controller
             } else
             {
                 return true;
+            }
+        }
+
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (client.OpenRead("http://google.com/generate_204"))
+                    return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

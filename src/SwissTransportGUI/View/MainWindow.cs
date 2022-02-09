@@ -1,4 +1,6 @@
+using System.Net;
 using System.Runtime.InteropServices;
+using SwissTransportGUI.Controller;
 
 namespace SwissTransportGUI.View;
 
@@ -29,8 +31,19 @@ public partial class MainWindow : Form
         AllocConsole();
     }
 
-    private void TabControl_Selected(object sender, TabControlEventArgs e)
+    private void MainWindow_Load(object sender, EventArgs e)
     {
-
+        // Check Internetconneciton
+        if (true)//!RegexHelper.CheckForInternetConnection())
+        {
+            DialogResult r = MessageBox.Show("You appear to be disconnected from the wonders of the web. This application is in need of such a connection to function correctly.","No active internet connection", MessageBoxButtons.RetryCancel);
+            if (r == DialogResult.Cancel)
+            {
+                Close();
+            } else if (r == DialogResult.Retry)
+            {
+                MainWindow_Load(new object(), new EventArgs());
+            }
+        }
     }
 }
