@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_BB96B1BF558B471A8889B10534E0B90E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_BE5A63AC9B3C48FDB709BB08E3EAF4DD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -100,6 +106,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BB96B1BF558B471A8889B10534E0B90E"
+            {
+            "SourcePath" = "8:..\\train.ico"
+            "TargetName" = "8:train.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_8A60327F32D64576B3073F7F22B66E22"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -155,9 +181,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:SwissTransportGUI Installer"
+        "ProductName" = "8:SwissTransportGUI"
         "ProductCode" = "8:{864B3FC4-7BAD-46F0-A0A4-D0DD344DE2E1}"
-        "PackageCode" = "8:{6F24DD84-82C4-41C3-A0D1-4B9F5D66FADA}"
+        "PackageCode" = "8:{9C0E4542-E6CF-4DC2-821C-B4D63992374F}"
         "UpgradeCode" = "8:{60001AFB-BC30-47E7-9756-D70DAFAFF294}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -174,7 +200,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Installer for SwissTransportGUI"
         "ARPURLINFOABOUT" = "8:https://github.com/3n3a/M318_SwissTransportGUI"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_BB96B1BF558B471A8889B10534E0B90E"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -277,6 +303,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_41A0C083B78841A589C1ACE7B0C7D5DC"
+            {
+            "Name" = "8:SwissTransportGUI"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_BE5A63AC9B3C48FDB709BB08E3EAF4DD"
+            "Folder" = "8:_B325FA63BE5B41ACBF503E98216DE911"
+            "WorkingFolder" = "8:_8A60327F32D64576B3073F7F22B66E22"
+            "Icon" = "8:_BB96B1BF558B471A8889B10534E0B90E"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
