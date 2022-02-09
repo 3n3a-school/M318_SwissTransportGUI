@@ -42,7 +42,17 @@ namespace SwissTransport
         [Fact]
         public void Connections()
         {
-            Connections connections = this.testee.GetConnections("Sursee", "Luzern", 4, DateTime.Now, DateTime.Now);
+            Connections connections = this.testee.GetConnections("Sursee", "Luzern", 4, DateTime.Now, DateTime.Now, null);
+
+            connections.Should().NotBeNull();
+            connections.ConnectionList.Count.Should().Be(4);
+            connections.ConnectionList[0].From.Departure.Should().BeAfter(DateTime.Now);
+        }
+
+        [Fact]
+        public void ConnectionsWVia()
+        {
+            Connections connections = this.testee.GetConnections("Sursee", "Luzern", 4, DateTime.Now, DateTime.Now, "Lausanne");
 
             connections.Should().NotBeNull();
             connections.ConnectionList.Count.Should().Be(4);
