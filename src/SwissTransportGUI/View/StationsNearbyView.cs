@@ -85,6 +85,7 @@ namespace SwissTransportGUI.View
                 TabIndex = 0,
                 Text = "Search",
                 UseVisualStyleBackColor = false,
+                ForeColor = Color.Blue
             };
 
             //
@@ -123,6 +124,7 @@ namespace SwissTransportGUI.View
             this.SearchComponent.AutoSuggestList.Click += new EventHandler(this.AutoSuggest_Click);
             this.SearchComponent.SearchBox.TextChanged += new EventHandler(this.CheckInput);
             this.SearchButton.Click += new EventHandler(this.SearchButton_Click);
+            
         }
 
         private void StationsNearbyTab_Paint(object? sender, PaintEventArgs e)

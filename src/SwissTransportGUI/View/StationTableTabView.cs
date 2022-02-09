@@ -109,6 +109,7 @@ namespace SwissTransportGUI.View
                 TabIndex = 0,
                 Text = "Search",
                 UseVisualStyleBackColor = false,
+                ForeColor = Color.Blue
             };
 
 

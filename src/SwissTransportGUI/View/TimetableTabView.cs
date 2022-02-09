@@ -297,6 +297,7 @@ namespace SwissTransportGUI.View
                 TabIndex = 0,
                 Text = "Search",
                 UseVisualStyleBackColor = false,
+                ForeColor = Color.Blue
             };
 
             // 
@@ -471,15 +472,39 @@ namespace SwissTransportGUI.View
             // Initializing Event Handlers
             this.TimetableTab.Paint += new PaintEventHandler(this.TimetableTab_Paint);
             this.SearchButton.Click += new EventHandler(this.SearchButton_Click);
+
             this.FromBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
             this.ToBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
             this.ViaBox.SearchBox.TextChanged += new EventHandler(this.ViaBox_TextChanged);
             this.ViaBox.SearchBox.TextChanged += new EventHandler(this.CheckFields_Completion);
+            this.ToBox.SearchBox.GotFocus += new EventHandler(this.HideAllOtherAutoSuggestions);
+            this.FromBox.SearchBox.GotFocus += new EventHandler(this.HideAllOtherAutoSuggestions);
+            this.ViaBox.SearchBox.GotFocus += new EventHandler(this.HideAllOtherAutoSuggestions);
+
+
             this.DatePicker.ValueChanged += new EventHandler(this.DatePicker_ValueChange);
             this.TimePicker.ValueChanged += new EventHandler(this.TimePicker_ValueChange);
             this.ShareByEmail.Click += new EventHandler(this.EmailConnection);
             this.ViewMapButton.Click += new EventHandler(this.ViewMapButton_Click);
             this.ConnectionGrid.SelectionChanged += new EventHandler(this.ConnectionGrid_SelectionChange);
+        }
+
+        private void HideAllOtherAutoSuggestions(object? sender, EventArgs e)
+        {
+            TextBox s = (TextBox)sender;
+
+            List<StationSearchComponent> inputFields = new List<StationSearchComponent>();
+            inputFields.Add(ToBox);
+            inputFields.Add(FromBox);
+            inputFields.Add(ViaBox);
+
+            foreach (StationSearchComponent field in inputFields)
+            {
+                if (nameof(field) != nameof(s.Parent))
+                {
+                    field.AutoSuggestList.Hide();
+                }
+            }
         }
 
         private void ViaBox_TextChanged(object? sender, EventArgs e)

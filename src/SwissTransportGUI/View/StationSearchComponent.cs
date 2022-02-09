@@ -72,7 +72,6 @@ namespace SwissTransportGUI.View
 
             this.SearchBox.TextChanged += new EventHandler(this.SearchBox_TextChanged);
             this.SearchBox.GotFocus += new EventHandler(this.ShowAutoSuggestions);
-            this.SearchBox.LostFocus += new EventHandler(this.HideAutoSuggestions);
             this.SearchBox.Click += new EventHandler(this.ShowAutoSuggestions);
             this.SearchBox.Resize += new EventHandler(this.SearchBox_Resize);
             this.SearchBox.KeyDown += new KeyEventHandler(this.SearchBox_HandleKey);
@@ -127,9 +126,5 @@ namespace SwissTransportGUI.View
             AutoSuggestList.Show();
         }
 
-        private void HideAutoSuggestions(object sender, EventArgs e)
-        {
-            AutoSuggestList.Hide();
-        }
     }
 }
