@@ -126,9 +126,9 @@ Anforderungen: Test _Verbindung suchen_ davor ausgeführt, aktive Internetverbin
 | 4 | Der Done Button wird geklickt | - Der Eingabe-Dialog verschwindet<br />- Ein neuer Dialog erscheint mit der Nachricht, dass unsere Email versendet wurde | ||
 | 5 | Postfach überprüfen | - Email kam an von "swisstransportgui@mail.3n3a.ch" mit dem Subject "Your Connection" | ||
 
-**keine Internetverbindung**
+**keine Internetverbindung vorhanden**
 
-Anforderungen: keine Internetverbindung
+Anforderungen: **keine** Internetverbindung
 
 | Schritt | Aktion | Erwartetes Resultat | Erfüllt | abweichendes Resultat |
 | --- | --- | --- |--- |--- |
@@ -136,7 +136,41 @@ Anforderungen: keine Internetverbindung
 
 ### Testprotokoll
 
-## Installationsanleitung
+## Installation
+
+**Anforderungen**:
+
+* Windows 10 oder höher
+* .NET 4.7 SDK Installiert
+* 64-bit
+
+### Installationsanleitung
+
+1. `Installer-v1.0.0-x64.msi` von Github-Release runterladen.
+
+2. Installer ausführen
+
+3. Auf _Next klicken_
+
+   ![image-20220209134754796](.assets/image-20220209134754796.png)
+
+4. Wieder auf _Next_ klicken
+
+   ![image-20220209134905950](.assets/image-20220209134905950.png)
+
+   5. Nochmals auf _Next_ klicken
+
+      ![image-20220209134939917](.assets/image-20220209134939917.png)
+
+      7. Bei der Frage nach _Administratorrechten_ auf _Ja_ klicken
+
+      8. Auf _Fertig_ klicken
+
+         ![image-20220209135101235](.assets/image-20220209135101235.png)
+
+      9. Die Applikation kann nun mit Klick auf die Windowstaste unten links und der Suche nach _SwissTransportGUI_ gestartet werden.
+
+         ![image-20220209135340684](.assets/image-20220209135340684.png)
 
 ## Zusätzliche Informationen
 
