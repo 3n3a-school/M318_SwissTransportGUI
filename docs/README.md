@@ -1,52 +1,70 @@
-# SwissTransportGUI
+---
+title: SwissTransportGUI
+---
+
+# SwissTransportGUI🚂
 
 Enea Krähenbühl, 9.2.2022
 
-## Inhaltsverzeichnis
+# Inhaltsverzeichnis
 
 [TOC]
 
-## Einleitung
+# Einleitung
 
 Dokumentation zum SwissTransportGUI aus dem ÜK M318. Die Applikation dient dem abrufen von ÖV-Verbindungen sowie dem anzeigen von diesen auf einer Karte und dem senden der Verbindung via Email an eine andere Person.
 
 Diese Dokumentation dient dem Programmierer als Referenz bezüglich User-Stories zu diesem Projekt, Mock-Ups sowie als auch anderen Diagrammen welche zur Planung und Wartung dieses Projektes dienen. Auch abgebildet sind Known-Issues, Testfälle und das Integrations-Testprotokoll.
 
-## Planungsdokumente
+# Bekannte Fehler (Bugs🐞)
 
-### Mockups
+### Passwörter in Datei
+
+Im EmailSendingController befinden sich drei Variabeln von sensitiver Natur, welche mit Base64 encoded wurden, damit man deren Inhalt nicht gleich sieht.
+
+Jedoch besteht hier ein Verbesserungspotenzial.
+
+### Verbindungsabfrage mit Via langsam
+
+Es scheint, dass bei Verbindungsabfragen mit dem zusätzlichen Parameter `via`, dass diese Abfrage entsprechend länger dauert, dies liegt aus meiner Sicht beim API-Betreiber.
+
+
+
+# Planungsdokumente
+
+## Mockups
 
 ![](.assets/Wireframes.png)
 
-#### Timetable - Tab
+### Timetable - Tab
 
 Dies ist der erste Screen welcher dem Benutzer bei Start der Applikation angezeigt wird. Hier kann dieser nach einer Verbindung zwischen A und B (optional via C) suchen. Nach erfolgreicher Suche werden die 4 nächsten Verbindungen angezeigt. Ursprünglich war geplant eine Art PopUp zu machen um zu Suchen jedoch passte dies nicht ins Gesamtbild der Applikation.
 
-#### Stations Nearby - Tab
+### Stations Nearby - Tab
 
 In diesem Tab kann der Benutzer nach Stationen in der Nähe anderer Stationen suchen. Diese werden dann auf einer Karte angezeigt.
 
-#### Departure Board - Tab
+### Departure Board - Tab
 
 In diesem Tab werden die nächsten Abfahrten einer Station angezeigt in einer Tabelle. Der Benutzer kann diese Station mit dem Suchfeld oben suchen.
 
-#### Search - Component
+### Search - Component
 
 Dies ist ein Komponent welchen ich durch die ganze UI der Applikation immer wieder verwendete und darum diesen auch als eigens "Ding" hier beschreibe.
 
-### Ablaufdiagramm _Station Suchen_
+## Ablaufdiagramm _Station Suchen_
 
 ![](.assets/ablaufdiagramm_stationssuche.png)
 
 Die Station wird im Eingabefeld eingegeben und danach validiert, sobald sie valide ist wird der Such-Knopf aktiviert. Wenn der Benutzer den Such-Knopf klickt, dann wird ein API-Request gesendet und die Station wenn gefunden, angezeigt.
 
-## User Roles
+# User Roles
 
-### Benutzer
+## Benutzer
 
 Der Anwender dieser Applikation, welcher keine besonderen technischen Fähigkeiten aufweist.
 
-## User Stories
+# User Stories
 
 | Id   | Titel                   | Beschrieb                                                    | Abnahmekriterien                                             | Priorität | Erfüllt |
 | ---- | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | --------- | ------- |
@@ -60,9 +78,9 @@ Der Anwender dieser Applikation, welcher keine besonderen technischen Fähigkeit
 | 8    | Verbindung Teilen       | Als Benutzer möchte ich eine Verbindung per Mail teilen können. | - Auf Knopfdruck wird ein Mail-Dialog geöffnet, welcher ein Mail sendet. ✅<br />- Verbindungsinformationen werden strukturiert im Email übertragen. ✅ | 3         | ✅       |
 | 9    | Via / Route anzeigen    | Als Benutzer möchte ich eine Verbindung via einer anderen Station suchen können. | - Die Via-Station kann eingegeben werden. ✅<br />- Die Verbindung wird angezeigt. ✅ | 3         | ✅       |
 
-## Integrationstests
+# Integrationstests
 
-### Testfälle
+## Testfälle
 
 **Testplan**
 
@@ -134,9 +152,9 @@ Anforderungen: **keine** Internetverbindung
 | --- | --- | --- |--- |--- |
 | 1 | Programm wird gestartet | - Dialog der anzeigt, dass keine Internetverbindung vorhanden ist | ||
 
-### Testprotokoll
+## Testprotokoll
 
-## Installation
+# Installation
 
 **Anforderungen**:
 
@@ -144,7 +162,7 @@ Anforderungen: **keine** Internetverbindung
 * .NET 4.7 SDK Installiert
 * 64-bit
 
-### Installationsanleitung
+## Installationsanleitung
 
 1. `Installer-v1.0.0-x64.msi` von Github-Release runterladen.
 
@@ -158,19 +176,31 @@ Anforderungen: **keine** Internetverbindung
 
    ![image-20220209134905950](.assets/image-20220209134905950.png)
 
-   5. Nochmals auf _Next_ klicken
+5. Nochmals auf _Next_ klicken
 
-      ![image-20220209134939917](.assets/image-20220209134939917.png)
+	![image-20220209134939917](.assets/image-20220209134939917.png)
 
-      7. Bei der Frage nach _Administratorrechten_ auf _Ja_ klicken
+7. Bei der Frage nach _Administratorrechten_ auf _Ja_ klicken
 
-      8. Auf _Fertig_ klicken
+8. Auf _Fertig_ klicken
 
-         ![image-20220209135101235](.assets/image-20220209135101235.png)
+	![image-20220209135101235](.assets/image-20220209135101235.png)
 
-      9. Die Applikation kann nun mit Klick auf die Windowstaste unten links und der Suche nach _SwissTransportGUI_ gestartet werden.
+9. Die Applikation kann nun mit Klick auf die Windowstaste unten links und der Suche nach _SwissTransportGUI_ gestartet werden.
+	
+	![image-20220209135340684](.assets/image-20220209135340684.png)
 
-         ![image-20220209135340684](.assets/image-20220209135340684.png)
+## Deinstallationsanleitung
 
-## Zusätzliche Informationen
+1. Zur Deinstallation wird der heruntergeladene Installer nochmals geöffnet und danach `Remove SwissTransportGUI` ausgewählt.
+	
+	![](.assets/image-20220209141339435.png)
 
+2. Bei Nachfrage des Systems nach Administratorrechten **Ja** auswählen
+3. Anschliessend wird die Applikation deinstalliert.
+
+# Zusätzliche Informationen
+
+* Für die Stationen in der Nähe wurde eine andere API benutzt. [Dokumentation Search.ch Timetable API](https://timetable.search.ch/api/help)
+* [Anleitung zum kreieren eines Installers](https://docs.microsoft.com/en-us/answers/questions/256664/is-it-possible-to-create-a-setup-filemsi-in-visual.html)
+* Zusätzliche Deployment Doku in `DEV-NOTES.md`
