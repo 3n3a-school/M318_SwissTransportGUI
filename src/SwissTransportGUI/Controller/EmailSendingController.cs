@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Buffers.Text;
 using System.IO;
 using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
 using MailKit;
 using MailKit.Net.Smtp;
 using MimeKit;
@@ -10,9 +13,12 @@ namespace SwissTransportGUI.Controller
 {
     public class EmailSendingController
     {
-        private readonly MailboxAddress _senderAddress = new MailboxAddress("SwissTransportGUI", "swisstransportgui@mail.3n3a.ch");
-        private const string SmtpServer = "smtp.eu.mailgun.org";
-        private const string SmtpPass = "e0cf0378b2b6af2a459fdb6d0c5512b4-d2cc48bc-e5ffed37";
+        private string a = "cwB3AGkAcwBzAHQAcgBhAG4AcwBwAG8AcgB0AGcAdQBpAEAAbQBhAGkAbAAuADMAbgAzAGEALgBjAGgA";
+        private string b = "cwBtAHQAcAAuAGUAdQAuAG0AYQBpAGwAZwB1AG4ALgBvAHIAZwA=";
+        private string c = "ZQAwAGMAZgAwADMANwA4AGIAMgBiADYAYQBmADIAYQA0ADUAOQBmAGQAYgA2AGQAMABjADUANQAxADIAYgA0AC0AZAAyAGMAYwA0ADgAYgBjAC0AZQA1AGYAZgBlAGQAMwA3AA==";
+        private MailboxAddress SenderAddress { get; set; }
+        private string SmtpServer { get; set; }
+        private string SmtpPass { get; set; }
 
         public MimeMessage EmailMessage { get; set; }
 
@@ -21,6 +27,10 @@ namespace SwissTransportGUI.Controller
         public EmailSendingController(ISmtpClient smtpClient)
         {
             SmtpClient = smtpClient;
+
+            SenderAddress = new MailboxAddress("SwissTransportGUI", Encoding.Unicode.GetString(Convert.FromBase64String(a)));
+            SmtpServer = Encoding.Unicode.GetString(Convert.FromBase64String(b));
+            SmtpPass = Encoding.Unicode.GetString(Convert.FromBase64String(c));
         }
 
         public void ConstructEmail(MailboxAddress receiverAddress, string departureLocation, string departureTime, string arrivalLocation,
@@ -31,7 +41,7 @@ namespace SwissTransportGUI.Controller
             string emailSubject = "Your Connection from SwissTransportGUI";
 
             EmailMessage = new MimeMessage();
-            EmailMessage.From.Add(_senderAddress);
+            EmailMessage.From.Add(SenderAddress);
             EmailMessage.To.Add(receiverAddress);
             EmailMessage.Subject = emailSubject;
             EmailMessage.Body = new TextPart("html")
@@ -47,7 +57,7 @@ namespace SwissTransportGUI.Controller
                 SmtpClient.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
                 SmtpClient.Connect(SmtpServer, 587, false);
-                SmtpClient.Authenticate(_senderAddress.Address, SmtpPass);
+                SmtpClient.Authenticate(SenderAddress.Address, SmtpPass);
 
                 SmtpClient.Send(EmailMessage);
                 SmtpClient.Disconnect(true);
